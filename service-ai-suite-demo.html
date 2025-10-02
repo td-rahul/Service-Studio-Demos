@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service AI Suite Demo - Treasure Apparel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f7fa;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .demo-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .content-container {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 60px);
+        }
+
+        .controls {
+            background: #333;
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .demo-title h2 {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .demo-title p {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .scene-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .controls button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .controls button:hover {
+            background: #45a049;
+        }
+
+        .controls button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+
+        .controls .scene-indicator {
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .controls .auto-play {
+            background: #2196F3;
+        }
+
+        .controls .auto-play:hover {
+            background: #1976D2;
+        }
+
+        .left-column {
+            flex: 2;
+            background: #ffffff;
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .right-column {
+            flex: 1;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow-y: auto;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .chat-header {
+            background: #1976D2;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .chat-header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-id {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .chat-agent {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .chat-status {
+            background: #4caf50;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .notification-banner {
+            background: #ff9800;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 500;
+            display: none;
+        }
+
+        .chat-notification {
+            background: #e3f2fd;
+            border: 2px solid #2196F3;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            font-weight: 500;
+            color: #1976D2;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 10px;
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.customer {
+            background: #e3f2fd;
+            color: #1976D2;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .message.agent {
+            background: #f1f8e9;
+            color: #388e3c;
+            align-self: flex-start;
+        }
+
+        .message-sender {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            opacity: 0.8;
+        }
+
+        .chat-closed {
+            background: #4caf50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 500;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .customer-panel, .insights-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            border: 1px solid #e8eaed;
+            animation: slideInRight 0.5s ease-out;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #888;
+            font-style: italic;
+            padding: 40px 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px dashed #ddd;
+        }
+
+        .loading-state {
+            text-align: center;
+            color: #666;
+            padding: 40px 20px;
+            background: #f0f8ff;
+            border-radius: 8px;
+            border: 2px solid #e3f2fd;
+            position: relative;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #e3f2fd;
+            border-radius: 50%;
+            border-top-color: #2196f3;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-dots {
+            display: inline-block;
+            position: relative;
+            width: 40px;
+            height: 10px;
+            margin-left: 10px;
+        }
+
+        .loading-dots div {
+            position: absolute;
+            top: 0;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #2196f3;
+            animation: loading-dots 1.2s linear infinite;
+        }
+
+        .loading-dots div:nth-child(1) { left: 8px; animation-delay: 0s; }
+        .loading-dots div:nth-child(2) { left: 16px; animation-delay: -0.4s; }
+        .loading-dots div:nth-child(3) { left: 24px; animation-delay: -0.8s; }
+
+        @keyframes loading-dots {
+            0%, 80%, 100% {
+                transform: scale(0);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .panel-transition {
+            animation: fadeInContent 0.8s ease-out;
+        }
+
+        @keyframes fadeInContent {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #202124;
+            background: linear-gradient(90deg, #f8fafe 0%, #ffffff 100%);
+            padding: 12px 16px;
+            margin: -20px -20px 16px -20px;
+            border-radius: 12px 12px 0 0;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        .customer-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #1a73e8;
+        }
+
+        .customer-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #1a73e8 0%, #4285f4 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .customer-details h3 {
+            color: #202124;
+            margin-bottom: 2px;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .customer-details .email {
+            color: #5f6368;
+            font-size: 13px;
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 8px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            background: transparent;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: #5f6368;
+            font-size: 13px;
+        }
+
+        .info-value {
+            color: #202124;
+            text-align: right;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .loyalty-badge {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .insights-log {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .insight-item {
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            line-height: 1.4;
+            animation: slideInDown 0.3s ease-out;
+            border-left: 3px solid transparent;
+            background: #ffffff;
+            border: 1px solid #f0f0f0;
+            transition: all 0.2s ease;
+        }
+
+        .insight-item:hover {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            transform: translateY(-1px);
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .insight-context {
+            background: #f0f8f0;
+            border-left-color: #4caf50;
+        }
+
+        .insight-analyzing {
+            background: #fff8f0;
+            border-left-color: #ff9800;
+        }
+
+        .insight-lookup {
+            background: #f0f6ff;
+            border-left-color: #2196f3;
+        }
+
+        .insight-identified {
+            background: #fdf0f4;
+            border-left-color: #e91e63;
+        }
+
+        .insight-suggestion {
+            background: #f8f0fa;
+            border-left-color: #9c27b0;
+        }
+
+        .insight-flag {
+            background: #fff0f0;
+            border-left-color: #f44336;
+        }
+
+        .insight-status {
+            background: #f0f8f0;
+            border-left-color: #4caf50;
+        }
+
+        .insight-executing {
+            background: #f0f6f4;
+            border-left-color: #009688;
+        }
+
+        .approval-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 25px;
+        }
+
+        .modal-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .approve-btn {
+            background: #4caf50;
+            color: white;
+        }
+
+        .deny-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .summary-view {
+            background: #f8fafe;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #e8eaed;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .summary-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .summary-item strong {
+            color: #5f6368;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .summary-item span {
+            color: #202124;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .expand-link {
+            color: #1a73e8;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 12px;
+            margin-top: 12px;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .expand-link:hover {
+            text-decoration: underline;
+        }
+
+        .active-offers {
+            background: #e8f5e8;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .active-offers h4 {
+            color: #388e3c;
+            margin-bottom: 10px;
+        }
+
+        .offer-item {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-left: 3px solid #4caf50;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="controls">
+            <div class="demo-title">
+                <h2>Service AI Suite Demo</h2>
+                <p>Service Studio - Online Chat</p>
+            </div>
+            <div class="scene-controls">
+                <span class="scene-indicator">Scene <span id="current-scene">1</span> of 6</span>
+                <button id="prev-btn" onclick="previousScene()">Previous</button>
+                <button id="next-btn" onclick="nextScene()">Next</button>
+                <button id="auto-play-btn" class="auto-play" onclick="toggleAutoPlay()">Auto Play</button>
+            </div>
+        </div>
+
+        <div class="content-container">
+            <div class="left-column">
+                <div class="chat-header">
+                    <div class="chat-header-left">
+                        <div class="chat-id">Chat #5678</div>
+                        <div class="chat-agent">AI Agent: Alex</div>
+                    </div>
+                    <div class="chat-header-right">
+                        <div class="chat-status">Status: Active</div>
+                    </div>
+                </div>
+                <div class="notification-banner" id="notification-banner">
+                    <strong>APPROVAL REQUIRED</strong><br>
+                    AI Agent Alex is requesting approval to issue a goodwill credit of $15 to high-value customer Emma Parker.
+                    <br><em>Awaiting approval from a Human Agent</em>
+                </div>
+                <div class="chat-container" id="chat-container">
+                    <!-- Chat messages will be dynamically added here -->
+                </div>
+            </div>
+
+            <div class="right-column" id="right-column">
+                <!-- Customer panel and insights panel will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="approval-modal" id="approval-modal">
+        <div class="modal-content">
+            <div class="modal-title">AI Action Approval Request</div>
+
+            <div style="margin-bottom: 20px;">
+                <strong>Customer:</strong> Emma Parker (⭐ Gold Member)<br>
+                <strong>Issue:</strong> Tried to use an expired coupon (SAVE25SUMMER)
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <strong>AI Proposed Solution:</strong><br>
+                ✅ Issue new 25% off coupon (Code: TREASURE25EP)<br>
+                ⚠️ Issue $15 Goodwill Credit (Requires Approval)
+            </div>
+
+            <div style="background: #f5f5f5; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                <strong>AI Rationale:</strong> "Customer is a high-value Gold Member. A goodwill gesture will build loyalty and likely lead to conversion, as customer recently browsed a new collection."
+            </div>
+
+            <div class="modal-buttons">
+                <button class="deny-btn" onclick="closeModal()">Deny & Take Over Chat</button>
+                <button class="approve-btn" onclick="approveAction()">Approve Action</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScene = 1;
+        let autoPlay = false;
+        let autoPlayInterval;
+        const totalScenes = 6;
+
+        const sceneData = {
+            1: {
+                title: "Initial Contact & Instant Customer Recognition",
+                description: "Customer reaches out and provides basic information"
+            },
+            2: {
+                title: "AI-Powered Autonomous Diagnosis",
+                description: "AI analyzes the issue and identifies root cause"
+            },
+            3: {
+                title: "AI Suggestion & Human-in-the-Loop Escalation",
+                description: "AI proposes solution requiring human approval"
+            },
+            4: {
+                title: "Human Agent Approval",
+                description: "Human agent reviews and approves AI suggestion"
+            },
+            5: {
+                title: "Resolution & Goodwill Offer",
+                description: "AI executes approved solution"
+            },
+            6: {
+                title: "Final Wrap-up & Collapsed Summary",
+                description: "Happy customer and auto-summary generation"
+            }
+        };
+
+        function updateControls() {
+            document.getElementById('current-scene').textContent = currentScene;
+            document.getElementById('prev-btn').disabled = currentScene <= 1;
+            document.getElementById('next-btn').disabled = currentScene >= totalScenes;
+        }
+
+        // Store all messages to maintain conversation continuity
+        let allMessages = [];
+
+        function clearChat() {
+            document.getElementById('chat-container').innerHTML = '';
+        }
+
+        function renderAllMessages() {
+            const chatContainer = document.getElementById('chat-container');
+            chatContainer.innerHTML = '';
+            allMessages.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${msg.sender}`;
+                messageDiv.innerHTML = `
+                    <div class="message-sender">${msg.sender === 'customer' ? 'Emma Parker' : 'Alex (AI Agent)'}</div>
+                    <div>${msg.text}</div>
+                `;
+                chatContainer.appendChild(messageDiv);
+            });
+
+            // Always scroll to show the latest message
+            setTimeout(() => {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 50);
+        }
+
+        function clearRightColumn() {
+            document.getElementById('right-column').innerHTML = '';
+        }
+
+        function addMessage(sender, text, delay = 0, sceneNumber = null) {
+            setTimeout(() => {
+                // Add to allMessages array for continuity
+                allMessages.push({ sender, text, scene: sceneNumber || currentScene });
+
+                const chatContainer = document.getElementById('chat-container');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}`;
+                messageDiv.innerHTML = `
+                    <div class="message-sender">${sender === 'customer' ? 'Emma Parker' : 'Alex (AI Agent)'}</div>
+                    <div>${text}</div>
+                `;
+                chatContainer.appendChild(messageDiv);
+
+                // Always scroll to show the latest message
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, delay);
+        }
+
+        function addChatNotification() {
+            const chatContainer = document.getElementById('chat-container');
+            const notificationDiv = document.createElement('div');
+            notificationDiv.className = 'chat-notification';
+            notificationDiv.innerHTML = '📞 Incoming Chat Request';
+            chatContainer.appendChild(notificationDiv);
+        }
+
+        function addCustomerPanelEmpty() {
+            const rightColumn = document.getElementById('right-column');
+            const customerPanel = document.createElement('div');
+            customerPanel.className = 'customer-panel';
+            customerPanel.id = 'customer-panel';
+            customerPanel.innerHTML = `
+                <div class="panel-title">Customer Lens</div>
+                <div class="empty-state">
+                    Awaiting customer identification...
+                </div>
+            `;
+            rightColumn.appendChild(customerPanel);
+        }
+
+        function showCustomerLoading() {
+            const customerPanel = document.getElementById('customer-panel');
+            if (customerPanel) {
+                customerPanel.innerHTML = `
+                    <div class="panel-title">Customer Lens</div>
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <div>Identifying customer...</div>
+                        <div class="loading-dots">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function addCustomerPanel() {
+            const customerPanel = document.getElementById('customer-panel');
+            if (customerPanel) {
+                customerPanel.innerHTML = `
+                    <div class="panel-title">Customer Lens</div>
+                    <div class="panel-transition">
+                        <div class="customer-info">
+                            <div class="customer-avatar">EP</div>
+                            <div class="customer-details">
+                                <h3>Emma Parker</h3>
+                                <div class="email">emma.p@email.com</div>
+                            </div>
+                        </div>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Loyalty Status:</span>
+                                <span class="info-value"><span class="loyalty-badge">⭐ Gold Member</span></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Lifetime Value:</span>
+                                <span class="info-value">$2,450</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Last Purchase:</span>
+                                <span class="info-value">3 weeks ago (Order #987122 - "The Seaside Linen Dress")</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Recent Activity:</span>
+                                <span class="info-value">Viewed "Autumn Collection" 2 days ago</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Active Offers:</span>
+                                <span class="info-value" id="active-offers">[Empty]</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function addInsightsPanelEmpty() {
+            const rightColumn = document.getElementById('right-column');
+            const insightsPanel = document.createElement('div');
+            insightsPanel.className = 'insights-panel';
+            insightsPanel.id = 'insights-panel';
+            insightsPanel.innerHTML = `
+                <div class="panel-title">AI Insights</div>
+                <div class="empty-state">
+                    AI analysis will appear here as the conversation progresses...
+                </div>
+            `;
+            rightColumn.appendChild(insightsPanel);
+        }
+
+        function showInsightsLoading() {
+            const insightsPanel = document.getElementById('insights-panel');
+            if (insightsPanel) {
+                insightsPanel.innerHTML = `
+                    <div class="panel-title">AI Insights</div>
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <div>Analyzing conversation...</div>
+                        <div class="loading-dots">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function addInsightsPanel() {
+            const insightsPanel = document.getElementById('insights-panel');
+            if (insightsPanel) {
+                insightsPanel.innerHTML = `
+                    <div class="panel-title">AI Insights</div>
+                    <div class="insights-log panel-transition" id="insights-log">
+                        <!-- Insights will be added here -->
+                    </div>
+                `;
+            }
+        }
+
+        function addInsight(type, text, delay = 0) {
+            setTimeout(() => {
+                const insightsLog = document.getElementById('insights-log');
+                if (insightsLog) {
+                    const insightDiv = document.createElement('div');
+                    insightDiv.className = `insight-item insight-${type}`;
+                    const label = type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
+                    insightDiv.innerHTML = `<strong>[${label}]</strong> ${text}`;
+                    insightsLog.insertBefore(insightDiv, insightsLog.firstChild);
+                }
+            }, delay);
+        }
+
+        function showNotificationBanner() {
+            document.getElementById('notification-banner').style.display = 'block';
+        }
+
+        function hideNotificationBanner() {
+            document.getElementById('notification-banner').style.display = 'none';
+        }
+
+        function showModal() {
+            document.getElementById('approval-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('approval-modal').style.display = 'none';
+        }
+
+        function approveAction() {
+            closeModal();
+
+            // If auto-play is active, continue the auto-play flow
+            if (autoPlay) {
+                // Clear any existing timeout to avoid conflicts
+                if (autoPlayInterval) {
+                    clearTimeout(autoPlayInterval);
+                }
+
+                // Move to next scene
+                nextScene();
+
+                // Resume auto-play with appropriate timing for the next scene
+                function resumeAutoPlay() {
+                    if (autoPlay && currentScene < totalScenes) {
+                        let delay = 6000; // Default 6 seconds
+                        if (currentScene === 1) delay = 5000;
+                        if (currentScene === 2) delay = 7000;
+                        if (currentScene === 4) delay = 3000;
+                        if (currentScene === 6) delay = 8000;
+
+                        autoPlayInterval = setTimeout(() => {
+                            if (autoPlay && currentScene < totalScenes) {
+                                nextScene();
+                                resumeAutoPlay();
+                            } else if (autoPlay && currentScene >= totalScenes) {
+                                toggleAutoPlay();
+                            }
+                        }, delay);
+                    }
+                }
+
+                // Resume auto-play for remaining scenes
+                resumeAutoPlay();
+            } else {
+                // Manual mode, just go to next scene
+                nextScene();
+            }
+        }
+
+        function addChatClosed() {
+            const chatContainer = document.getElementById('chat-container');
+            // Check if closed message already exists
+            if (!chatContainer.querySelector('.chat-closed')) {
+                const closedDiv = document.createElement('div');
+                closedDiv.className = 'chat-closed';
+                closedDiv.innerHTML = '✅ Chat Closed - Issue Resolved';
+                chatContainer.appendChild(closedDiv);
+
+                // Always scroll to show the latest message
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        }
+
+        function updateActiveOffers() {
+            const activeOffersElement = document.getElementById('active-offers');
+            if (activeOffersElement) {
+                activeOffersElement.innerHTML = `
+                    <div class="active-offers">
+                        <div class="offer-item">25% Off Coupon (Code: TREASURE25EP)</div>
+                        <div class="offer-item">$15 Account Credit</div>
+                    </div>
+                `;
+            }
+        }
+
+        function transformToSummary() {
+            const insightsPanel = document.querySelector('.insights-panel');
+            if (insightsPanel) {
+                insightsPanel.innerHTML = `
+                    <div class="panel-title">AI Insights</div>
+                    <div class="summary-view">
+                        <div class="summary-item">
+                            <strong>OUTCOME:</strong> <span style="color: #4caf50;">Resolved</span>
+                        </div>
+                        <div class="summary-item">
+                            <strong>ACTIONS TAKEN:</strong> <span>Issued 25% coupon, Applied $15 credit</span>
+                        </div>
+                        <div class="summary-item">
+                            <strong>SENTIMENT ANALYSIS:</strong> <span style="color: #4caf50;">Positive</span>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <strong>AUTO-GENERATED SUMMARY:</strong><br>
+                            <em>Customer contacted support about an expired coupon. AI identified the issue and, with human approval, provided a replacement coupon and a $15 goodwill credit to the high-value customer.</em>
+                        </div>
+                        <div class="expand-link" onclick="expandLog()">See full log...</div>
+                    </div>
+                `;
+            }
+        }
+
+        function expandLog() {
+            const insightsPanel = document.querySelector('.insights-panel');
+            if (insightsPanel) {
+                insightsPanel.innerHTML = `
+                    <div class="panel-title">AI Insights - Full Log</div>
+                    <div class="insights-log">
+                        <div class="insight-item insight-executing"><strong>[Executing]</strong> Applying $15 credit to account... Done.</div>
+                        <div class="insight-item insight-executing"><strong>[Executing]</strong> Generating new coupon code... Done.</div>
+                        <div class="insight-item insight-status"><strong>[Status]</strong> Human Agent Sarah Miller has approved the proposed actions.</div>
+                        <div class="insight-item insight-flag"><strong>[Flag]</strong> Goodwill credit exceeds AI autonomy limits. Requires human approval.</div>
+                        <div class="insight-item insight-suggestion"><strong>[Suggestion]</strong> Proposed Action: Generate a new, single-use 25% off coupon. Goodwill Gesture Recommendation: Based on customer's high lifetime value and recent browsing activity, offer a $15 credit as a special apology.</div>
+                        <div class="insight-item insight-suggestion"><strong>[Policy check]</strong> Exception for Gold Members: Permitted to issue a replacement coupon of equal value.</div>
+                        <div class="insight-item insight-suggestion"><strong>[Policy check]</strong> Standard procedure for expired coupons is to apologize.</div>
+                        <div class="insight-item insight-identified"><strong>[Root cause identified]</strong> The customer is using a coupon that expired yesterday.</div>
+                        <div class="insight-item insight-identified"><strong>[Result]</strong> Code status: Expired. (Valid through: Sept 30, 2025).</div>
+                        <div class="insight-item insight-lookup"><strong>[Lookup]</strong> Checking validity of coupon code: SAVE25SUMMER.</div>
+                        <div class="insight-item insight-context"><strong>[Context]</strong> Customer identified: Emma Parker (High-Value: Gold Member).</div>
+                        <div class="insight-item insight-analyzing"><strong>[Analyzing]</strong> Customer query: "coupon not working".</div>
+                    </div>
+                    <div class="expand-link" onclick="transformToSummary()">← Back to summary</div>
+                `;
+            }
+        }
+
+        function executeScene(sceneNumber) {
+            hideNotificationBanner();
+
+            // Only add new messages if they don't already exist
+            const sceneMessages = allMessages.filter(msg => msg.scene === sceneNumber);
+
+            switch(sceneNumber) {
+                case 1:
+                    clearRightColumn();
+                    addCustomerPanelEmpty();
+                    addInsightsPanelEmpty();
+
+                    if (sceneNumber > currentScene || allMessages.length === 0) {
+                        addMessage('customer', 'Hi, my coupon isn\'t working.', 500, 1);
+                        addMessage('agent', 'Hello! Thank you for contacting Treasure Apparel. I can certainly help you with that. To get started, could you please provide me with your full name and the email address associated with your account?', 1500, 1);
+                        addMessage('customer', 'Sure, it\'s Emma Parker, and my email is emma.p@email.com', 3000, 1);
+                        setTimeout(() => {
+                            showCustomerLoading();
+                        }, 3200);
+                        setTimeout(() => {
+                            addCustomerPanel();
+                        }, 4200);
+                    } else {
+                        // Going back to scene 1, just show existing messages
+                        renderAllMessages();
+                        setTimeout(() => {
+                            addCustomerPanel();
+                        }, 100);
+                    }
+                    break;
+
+                case 2:
+                    if (sceneNumber > currentScene || sceneMessages.length === 0) {
+                        addMessage('agent', 'Thank you, Emma. I\'ve pulled up your account. It\'s great to see you\'re one of our Gold Members! I\'m sorry to hear you\'re having trouble with a coupon. Could you please share the coupon code you are trying to use?', 500, 2);
+                        setTimeout(() => {
+                            showInsightsLoading();
+                        }, 800);
+                        setTimeout(() => {
+                            addInsightsPanel();
+                            addInsight('context', 'Customer identified: Emma Parker (High-Value: Gold Member).', 200);
+                            addInsight('analyzing', 'Customer query: "coupon not working".', 400);
+                        }, 1800);
+                        setTimeout(() => {
+                            addMessage('customer', 'It\'s SAVE25SUMMER', 2500, 2);
+                            addInsight('lookup', 'Checking validity of coupon code: SAVE25SUMMER.', 3000);
+                            addInsight('identified', 'Code status: Expired. (Valid through: Sept 30, 2025).', 3200);
+                            addInsight('identified', 'The customer is using a coupon that expired yesterday.', 3400);
+                            addMessage('agent', 'Thanks, Emma. I\'ve looked into it, and it appears the SAVE25SUMMER coupon just expired yesterday. I sincerely apologize for any confusion and frustration this may have caused.', 4000, 2);
+                        }, 2000);
+                    } else {
+                        renderAllMessages();
+                        addInsightsPanel();
+                        addInsight('context', 'Customer identified: Emma Parker (High-Value: Gold Member).', 100);
+                        addInsight('analyzing', 'Customer query: "coupon not working".', 200);
+                        addInsight('lookup', 'Checking validity of coupon code: SAVE25SUMMER.', 300);
+                        addInsight('identified', 'Code status: Expired. (Valid through: Sept 30, 2025).', 400);
+                        addInsight('identified', 'The customer is using a coupon that expired yesterday.', 500);
+                    }
+                    break;
+
+                case 3:
+                    renderAllMessages();
+                    addInsight('suggestion', 'Standard procedure for expired coupons is to apologize.', 500);
+                    addInsight('suggestion', 'Exception for Gold Members: Permitted to issue a replacement coupon of equal value.', 700);
+                    addInsight('suggestion', 'Proposed Action: Generate a new, single-use 25% off coupon. Goodwill Gesture Recommendation: Based on customer\'s high lifetime value and recent browsing activity, offer a $15 credit as a special apology.', 1000);
+                    addInsight('flag', 'Goodwill credit exceeds AI autonomy limits. Requires human approval.', 1500);
+                    setTimeout(() => {
+                        showNotificationBanner();
+                    }, 2000);
+                    break;
+
+                case 4:
+                    renderAllMessages();
+                    setTimeout(() => {
+                        showModal();
+                    }, 500);
+                    break;
+
+                case 5:
+                    hideNotificationBanner();
+                    if (sceneNumber > currentScene || sceneMessages.length === 0) {
+                        addInsight('status', 'Human Agent Sarah Miller has approved the proposed actions.', 500);
+                        addInsight('executing', 'Generating new coupon code... Done.', 1000);
+                        addInsight('executing', 'Applying $15 credit to account... Done.', 1200);
+                        setTimeout(() => {
+                            addMessage('agent', 'Emma, while that specific code has expired, I definitely want to make sure you get your discount. I\'ve gone ahead and generated a brand new 25% off coupon just for you. The code is TREASURE25EP.', 1500, 5);
+                            addMessage('agent', 'Furthermore, to thank you for being such a loyal Gold Member and for your patience today, I\'ve also added a $15 credit to your account. You can use it on your very next purchase, no minimum spend required. Both the coupon and the credit will be waiting for you at checkout.', 2500, 5);
+                        }, 1000);
+                    } else {
+                        renderAllMessages();
+                        addInsight('status', 'Human Agent Sarah Miller has approved the proposed actions.', 100);
+                        addInsight('executing', 'Generating new coupon code... Done.', 200);
+                        addInsight('executing', 'Applying $15 credit to account... Done.', 300);
+                    }
+                    break;
+
+                case 6:
+                    if (sceneNumber > currentScene || sceneMessages.length === 0) {
+                        addMessage('customer', 'Wow, that is amazing! I was not expecting that. Thank you so much for your help!', 500, 6);
+                        addMessage('agent', 'You are very welcome, Emma! We appreciate you. Is there anything else I can assist you with today?', 1500, 6);
+                        addMessage('customer', 'Nope, that\'s everything. You\'ve been a great help!', 2500, 6);
+                        setTimeout(() => {
+                            addChatClosed();
+                            updateActiveOffers();
+                            transformToSummary();
+                        }, 3500);
+                    } else {
+                        renderAllMessages();
+                        setTimeout(() => {
+                            addChatClosed();
+                            updateActiveOffers();
+                            transformToSummary();
+                        }, 100);
+                    }
+                    break;
+            }
+        }
+
+        function nextScene() {
+            if (currentScene < totalScenes) {
+                currentScene++;
+                executeScene(currentScene);
+                updateControls();
+            }
+        }
+
+        function previousScene() {
+            if (currentScene > 1) {
+                currentScene--;
+                executeScene(currentScene);
+                updateControls();
+            }
+        }
+
+        function toggleAutoPlay() {
+            autoPlay = !autoPlay;
+            const btn = document.getElementById('auto-play-btn');
+
+            if (autoPlay) {
+                btn.textContent = 'Stop Auto Play';
+                btn.style.background = '#f44336';
+
+                function playNextScene() {
+                    if (autoPlay && currentScene < totalScenes) {
+                        nextScene();
+
+                        // Special handling for Scene 4 (modal scene) - pause auto-play
+                        if (currentScene === 4) {
+                            // Auto-play will be resumed when user clicks "Approve Action"
+                            // Don't set a timeout here, wait for user interaction
+                            return;
+                        }
+
+                        // Set different timing based on scene complexity
+                        let delay = 6000; // Default 6 seconds
+                        if (currentScene === 1) delay = 5000; // Scene 1: 5 seconds
+                        if (currentScene === 2) delay = 7000; // Scene 2: 7 seconds (has more content)
+                        if (currentScene === 6) delay = 8000; // Scene 6: 8 seconds (final scene)
+
+                        autoPlayInterval = setTimeout(playNextScene, delay);
+                    } else if (autoPlay && currentScene >= totalScenes) {
+                        // Auto-play finished, stop it
+                        toggleAutoPlay();
+                    }
+                }
+
+                // Start auto-play
+                let initialDelay = 5000; // First scene delay
+                autoPlayInterval = setTimeout(playNextScene, initialDelay);
+
+            } else {
+                btn.textContent = 'Auto Play';
+                btn.style.background = '#2196F3';
+                if (autoPlayInterval) {
+                    clearTimeout(autoPlayInterval);
+                    autoPlayInterval = null;
+                }
+            }
+        }
+
+        // Initialize the demo
+        document.addEventListener('DOMContentLoaded', function() {
+            updateControls();
+            executeScene(1);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft' && currentScene > 1) {
+                previousScene();
+            } else if (event.key === 'ArrowRight' && currentScene < totalScenes) {
+                nextScene();
+            } else if (event.key === ' ') {
+                event.preventDefault();
+                toggleAutoPlay();
+            }
+        });
+    </script>
+</body>
+</html>
