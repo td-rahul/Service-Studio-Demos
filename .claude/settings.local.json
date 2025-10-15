@@ -1,7 +1,19 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:www.treasuredata.com)"
+      "WebFetch(domain:www.treasuredata.com)",
+      "Bash(python3:*)",
+      "Bash(rm:*)",
+      "Bash(claude mcp:*)",
+      "Bash(npm install)",
+      "Bash(git remote set-url:*)",
+      "Bash(npx create-next-app:*)",
+      "Bash(npm cache clean:*)",
+      "Bash(sudo chown:*)",
+      "Bash(mkdir:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []

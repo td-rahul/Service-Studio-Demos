@@ -1,0 +1,144 @@
+{
+  "global": {
+    "colors": {
+      "primary": {
+        "td-primary": "#1ca3a3",
+        "td-primary-light": "#2dd4bf",
+        "td-primary-dark": "#0f766e",
+        "td-blue": "#0ea5e9",
+        "td-blue-light": "#38bdf8"
+      },
+      "neutrals": {
+        "gray-50": "#f9fafb",
+        "gray-100": "#f3f4f6",
+        "gray-200": "#e5e7eb",
+        "gray-300": "#d1d5db",
+        "gray-400": "#9ca3af",
+        "gray-500": "#6b7280",
+        "gray-600": "#4b5563",
+        "gray-700": "#374151",
+        "gray-800": "#1f2937",
+        "gray-900": "#111827"
+      },
+      "status": {
+        "success": "#10b981",
+        "warning": "#f59e0b",
+        "error": "#ef4444",
+        "info": "#3b82f6"
+      },
+      "gradients": {
+        "ai-primary": "linear-gradient(135deg, #AA36FF, #3454FF)",
+        "td-primary": "linear-gradient(135deg, #1ca3a3, #0ea5e9)",
+        "status-warning": "linear-gradient(135deg, #f59e0b, #fb923c)"
+      }
+    },
+    "typography": {
+      "font-family": "Inter",
+      "sizes": {
+        "xs": "12px",
+        "sm": "14px",
+        "base": "16px",
+        "lg": "18px",
+        "xl": "20px",
+        "2xl": "24px"
+      },
+      "weights": {
+        "light": 300,
+        "normal": 400,
+        "medium": 500,
+        "semibold": 600,
+        "bold": 700
+      }
+    },
+    "spacing": {
+      "1": "4px",
+      "2": "8px",
+      "3": "12px",
+      "4": "16px",
+      "5": "20px",
+      "6": "24px",
+      "8": "32px",
+      "12": "48px"
+    },
+    "border-radius": {
+      "sm": "4px",
+      "md": "6px",
+      "lg": "8px",
+      "xl": "12px",
+      "2xl": "16px",
+      "3xl": "24px"
+    },
+    "shadows": {
+      "sm": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+      "md": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+      "lg": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+      "modal": "0 25px 50px rgba(0, 0, 0, 0.15)"
+    }
+  },
+  "components": {
+    "header": {
+      "height": "60px",
+      "background": "white",
+      "border": "1px solid #e5e7eb",
+      "logo": {
+        "size": "32px",
+        "background": "#17494D",
+        "color": "white",
+        "border-radius": "6px"
+      }
+    },
+    "ai-copilot": {
+      "width": "420px",
+      "background": "linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%)",
+      "icon": {
+        "size": "24px",
+        "background": "linear-gradient(135deg, #AA36FF, #3454FF)",
+        "border-radius": "6px"
+      },
+      "status-card": {
+        "background": "linear-gradient(135deg, #AA36FF, #3454FF)",
+        "border-radius": "12px",
+        "padding": "16px"
+      }
+    },
+    "customer-profile": {
+      "avatar": {
+        "size": "64px",
+        "background": "#3b82f6",
+        "border-radius": "50%"
+      },
+      "badges": {
+        "gold": {
+          "background": "#f59e0b",
+          "color": "white",
+          "border-radius": "6px"
+        },
+        "verified": {
+          "background": "#10b981",
+          "color": "white",
+          "border-radius": "6px"
+        }
+      }
+    },
+    "modal": {
+      "background": "white",
+      "border-radius": "24px",
+      "max-width": "900px",
+      "shadow": "0 25px 50px rgba(0, 0, 0, 0.15)"
+    },
+    "buttons": {
+      "primary": {
+        "background": "linear-gradient(135deg, #10b981, #059669)",
+        "color": "white",
+        "border-radius": "8px",
+        "padding": "8px 16px"
+      },
+      "secondary": {
+        "background": "white",
+        "color": "#374151",
+        "border": "2px solid #e2e8f0",
+        "border-radius": "8px"
+      }
+    }
+  }
+}
