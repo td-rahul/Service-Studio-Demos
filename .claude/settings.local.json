@@ -13,7 +13,9 @@
       "Bash(mkdir:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git remote get-url:*)",
+      "WebFetch(domain:alicegutd.github.io)"
     ],
     "deny": [],
     "ask": []
