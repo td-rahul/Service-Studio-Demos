@@ -116,7 +116,7 @@
             <div class="flex-1 overflow-y-auto p-4 pt-6">
                 <div class="space-y-1">
                     <!-- Home -->
-                    <a href="#" onclick="showPage('home')" class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+                    <a href="#" onclick="showPage('home')" class="flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                         </svg>
@@ -124,7 +124,7 @@
                     </a>
 
                     <!-- Customers -->
-                    <a href="#" onclick="showPage('customers')" class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+                    <a href="#" onclick="showPage('customers')" class="flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
                         </svg>
@@ -132,7 +132,7 @@
                     </a>
 
                     <!-- Conversations -->
-                    <a href="#" onclick="showPage('conversations')" class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+                    <a href="#" onclick="showPage('conversations')" class="flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                         </svg>
@@ -140,7 +140,7 @@
                     </a>
 
                     <!-- AI Agent Settings -->
-                    <a href="#" onclick="showPage('ai-settings')" class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+                    <a href="#" onclick="showPage('ai-settings')" class="flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
@@ -148,7 +148,7 @@
                     </a>
 
                     <!-- Integrations -->
-                    <a href="#" onclick="showPage('integrations')" class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+                    <a href="#" onclick="showPage('integrations')" class="flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a1 1 0 01-1-1V9a1 1 0 011-1h1a2 2 0 100-4H4a1 1 0 01-1-1V4a1 1 0 011-1h3a1 1 0 011 1v1z"/>
                         </svg>
@@ -330,9 +330,9 @@
                 // Reset to default styles
                 item.style.backgroundColor = '';
                 item.style.color = '';
-                item.style.height = '';
+                item.style.height = '48px';
                 item.style.borderRadius = '';
-                item.className = 'flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors';
+                item.className = 'flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors';
 
                 // Remove any existing left strip
                 const existingStrip = item.querySelector('.absolute');
