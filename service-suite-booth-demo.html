@@ -115,14 +115,12 @@
             <!-- Navigation Content -->
             <div class="flex-1 overflow-y-auto p-4 pt-6">
                 <div class="space-y-1">
-                    <!-- Home - Active/Selected -->
-                    <a href="#" onclick="showPage('home')" class="flex items-center space-x-3 px-3 transition-colors relative overflow-hidden" style="height: 48px; background-color: #F3F1FF; color: #824BFB; border-radius: 4px;">
-                        <!-- Left purple strip as part of selected state component -->
-                        <div class="absolute left-0 top-0 bottom-0 w-1" style="background-color: #824BFB;"></div>
+                    <!-- Home -->
+                    <a href="#" onclick="showPage('home')" class="flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                         </svg>
-                        <span class="font-medium">Home</span>
+                        <span>Home</span>
                     </a>
 
                     <!-- Customers -->
@@ -328,11 +326,19 @@
 
         function updateNavigationStates(activePageId) {
             // Reset all navigation items to inactive state
-            document.querySelectorAll('#expanded-nav a, #expanded-nav div').forEach(item => {
+            document.querySelectorAll('#expanded-nav a').forEach(item => {
+                // Reset to default styles
                 item.style.backgroundColor = '';
                 item.style.color = '';
-                item.classList.remove('font-medium');
-                item.classList.add('text-gray-600');
+                item.style.height = '';
+                item.style.borderRadius = '';
+                item.className = 'flex items-center space-x-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors';
+
+                // Remove any existing left strip
+                const existingStrip = item.querySelector('.absolute');
+                if (existingStrip) {
+                    existingStrip.remove();
+                }
             });
 
             // Set active state based on page
@@ -349,11 +355,27 @@
             if (activeNavText) {
                 document.querySelectorAll('#expanded-nav span').forEach(span => {
                     if (span.textContent === activeNavText) {
-                        const navItem = span.closest('a') || span.closest('div');
-                        navItem.style.backgroundColor = '#F3F1FF';
-                        navItem.style.color = '#824BFB';
-                        navItem.classList.add('font-medium');
-                        navItem.classList.remove('text-gray-600');
+                        const navItem = span.closest('a');
+                        if (navItem) {
+                            // Apply selected state component styling
+                            navItem.className = 'flex items-center space-x-3 px-3 transition-colors relative overflow-hidden';
+                            navItem.style.height = '48px';
+                            navItem.style.backgroundColor = '#F3F1FF';
+                            navItem.style.color = '#824BFB';
+                            navItem.style.borderRadius = '4px';
+
+                            // Add left purple strip
+                            const strip = document.createElement('div');
+                            strip.className = 'absolute left-0 top-0 bottom-0 w-1';
+                            strip.style.backgroundColor = '#824BFB';
+                            navItem.insertBefore(strip, navItem.firstChild);
+
+                            // Make text bold
+                            const textSpan = navItem.querySelector('span');
+                            if (textSpan) {
+                                textSpan.classList.add('font-medium');
+                            }
+                        }
                     }
                 });
             }
