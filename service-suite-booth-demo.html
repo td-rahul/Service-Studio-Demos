@@ -370,9 +370,10 @@
                             navItem.style.color = '#6F2EFF';
                             navItem.style.borderRadius = '4px';
 
-                            // Add left purple strip (positioned absolutely so it doesn't affect layout)
+                            // Add left purple strip at the left edge
                             const strip = document.createElement('div');
-                            strip.className = 'absolute left-0 top-0 bottom-0';
+                            strip.className = 'absolute top-0 bottom-0';
+                            strip.style.left = '0px';
                             strip.style.width = '4px';
                             strip.style.backgroundColor = '#6F2EFF';
                             strip.style.zIndex = '1';
