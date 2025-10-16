@@ -370,13 +370,14 @@
                             navItem.style.color = '#6F2EFF';
                             navItem.style.borderRadius = '4px';
 
-                            // Add left purple strip at the left edge
+                            // Add left purple strip at the very left edge
                             const strip = document.createElement('div');
                             strip.className = 'absolute top-0 bottom-0';
                             strip.style.left = '0px';
-                            strip.style.width = '4px';
+                            strip.style.width = '3px';
                             strip.style.backgroundColor = '#6F2EFF';
-                            strip.style.zIndex = '1';
+                            strip.style.borderTopLeftRadius = '4px';
+                            strip.style.borderBottomLeftRadius = '4px';
                             navItem.appendChild(strip);
 
                             // Make text bold
