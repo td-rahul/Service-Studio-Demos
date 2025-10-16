@@ -29,9 +29,18 @@
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         }
         #rotating-text {
-            transition: opacity 0.15s ease-in-out;
             min-width: 140px;
             text-align: left;
+            position: relative;
+        }
+        #rotating-text::after {
+            content: '|';
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
         #animated-placeholder {
             transition: opacity 0.3s ease-in-out;
@@ -414,15 +423,54 @@
             const textarea = document.getElementById('ai-textarea');
             const placeholder = document.getElementById('animated-placeholder');
             let currentIndex = 0;
+            let isTyping = false;
 
-            function rotateText() {
-                if (rotatingText) {
-                    rotatingText.style.opacity = '0';
-                    setTimeout(() => {
+            function typeWord(word) {
+                return new Promise((resolve) => {
+                    let charIndex = 0;
+                    rotatingText.textContent = '';
+
+                    function typeChar() {
+                        if (charIndex < word.length) {
+                            rotatingText.textContent += word[charIndex];
+                            charIndex++;
+                            setTimeout(typeChar, 100); // 100ms between characters
+                        } else {
+                            setTimeout(resolve, 1500); // Wait 1.5s before starting to delete
+                        }
+                    }
+                    typeChar();
+                });
+            }
+
+            function deleteWord() {
+                return new Promise((resolve) => {
+                    const currentText = rotatingText.textContent;
+                    let charIndex = currentText.length;
+
+                    function deleteChar() {
+                        if (charIndex > 0) {
+                            rotatingText.textContent = currentText.substring(0, charIndex - 1);
+                            charIndex--;
+                            setTimeout(deleteChar, 50); // 50ms between deletions (faster)
+                        } else {
+                            setTimeout(resolve, 300); // Brief pause before typing next word
+                        }
+                    }
+                    deleteChar();
+                });
+            }
+
+            async function animateText() {
+                if (!isTyping && rotatingText) {
+                    isTyping = true;
+
+                    while (true) {
+                        const word = rotatingWords[currentIndex];
+                        await typeWord(word);
+                        await deleteWord();
                         currentIndex = (currentIndex + 1) % rotatingWords.length;
-                        rotatingText.textContent = rotatingWords[currentIndex];
-                        rotatingText.style.opacity = '1';
-                    }, 150);
+                    }
                 }
             }
 
@@ -449,8 +497,8 @@
                 });
             }
 
-            // Start the rotation animation
-            setInterval(rotateText, 2000);
+            // Start the typing animation
+            animateText();
         }
 
         // Initialize on page load
