@@ -28,6 +28,40 @@
         .nav-active {
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         }
+
+        .animated-gradient-border {
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #A37AFD, #0095FF, #A37AFD) 1;
+            animation: gradient-border 3s ease-in-out infinite;
+            position: relative;
+            border-radius: 16px;
+        }
+
+        .animated-gradient-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #A37AFD, #0095FF, #A37AFD, #0095FF);
+            background-size: 400% 400%;
+            border-radius: 16px;
+            z-index: -1;
+            animation: gradient-animation 3s ease infinite;
+        }
+
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
         #rotating-text {
             min-width: 140px;
             text-align: left;
@@ -200,7 +234,7 @@
                                 <div class="relative">
                                     <textarea
                                         id="ai-textarea"
-                                        class="w-full p-6 text-lg border-2 border-blue-300 rounded-2xl resize-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 bg-white shadow-sm"
+                                        class="w-full p-6 text-lg resize-none bg-white shadow-sm animated-gradient-border"
                                         rows="4"
                                     ></textarea>
                                     <!-- Animated placeholder overlay -->
@@ -214,14 +248,19 @@
                                             <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
                                         </svg>
                                     </button>
-                                    <!-- Voice Command Button (with lighter gray background) -->
-                                    <button class="absolute bottom-6 right-6 bg-gray-200 hover:bg-gray-300 text-gray-700 p-3 rounded-full transition-colors">
-                                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <!-- Voice Command / Submit Button (with lighter gray background) -->
+                                    <button id="voice-submit-btn" class="absolute bottom-6 right-6 bg-gray-200 hover:bg-gray-300 text-gray-700 p-3 rounded-full transition-colors">
+                                        <!-- Voice Mode Icon (default) -->
+                                        <svg id="voice-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                             <rect x="11" y="6" width="2" height="12" rx="1"/>
                                             <rect x="7" y="8" width="2" height="8" rx="1"/>
                                             <rect x="15" y="8" width="2" height="8" rx="1"/>
                                             <rect x="3" y="10" width="2" height="4" rx="1"/>
                                             <rect x="19" y="10" width="2" height="4" rx="1"/>
+                                        </svg>
+                                        <!-- Submit Icon (hidden by default) -->
+                                        <svg id="submit-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M13.4636 7.15162C13.6587 7.34616 13.6587 7.65374 13.4636 7.84828C13.2684 8.04285 12.9596 8.04287 12.7644 7.84828L8.60234 3.69644V12.2C8.60234 12.4761 8.37686 12.7 8.10006 12.7C7.82328 12.7 7.59778 12.4761 7.59778 12.2L7.59778 3.69644L3.43574 7.84828L3.39869 7.88141C3.19813 8.03361 2.89702 8.02367 2.70851 7.84828C2.51979 7.67273 2.50979 7.37254 2.68695 7.18487L2.70851 7.15162L7.57423 2.30982C7.59993 2.28463 7.62776 2.2618 7.65657 2.24207C7.68599 2.22083 7.71788 2.20317 7.75128 2.18931C7.78467 2.17545 7.81825 2.16608 7.85098 2.16094C7.87691 2.15651 7.90419 2.15326 7.93206 2.15326C7.96044 2.15325 7.98821 2.1564 8.01471 2.16094C8.04554 2.16564 8.07581 2.17404 8.10469 2.18594L8.11054 2.18797C8.12855 2.1946 8.1447 2.20277 8.16128 2.21047C8.19093 2.22563 8.21893 2.24397 8.24389 2.26673L13.4636 7.15162Z"/>
                                         </svg>
                                     </button>
                                 </div>
@@ -485,13 +524,33 @@
                 }
             }
 
-            // Hide placeholder when user types
+            // Hide placeholder when user types and switch button icon
             if (textarea && placeholder) {
+                const voiceIcon = document.getElementById('voice-icon');
+                const submitIcon = document.getElementById('submit-icon');
+                const voiceSubmitBtn = document.getElementById('voice-submit-btn');
+
                 textarea.addEventListener('input', function() {
                     if (this.value.length > 0) {
                         placeholder.style.display = 'none';
+                        // Switch to submit icon when typing
+                        if (voiceIcon && submitIcon && voiceSubmitBtn) {
+                            voiceIcon.classList.add('hidden');
+                            submitIcon.classList.remove('hidden');
+                            // Change button to blue background
+                            voiceSubmitBtn.style.backgroundColor = '#1957DB';
+                            voiceSubmitBtn.style.color = 'white';
+                        }
                     } else {
                         placeholder.style.display = 'block';
+                        // Switch back to voice icon when empty
+                        if (voiceIcon && submitIcon && voiceSubmitBtn) {
+                            voiceIcon.classList.remove('hidden');
+                            submitIcon.classList.add('hidden');
+                            // Reset button to gray background
+                            voiceSubmitBtn.style.backgroundColor = '#e5e7eb';
+                            voiceSubmitBtn.style.color = '#374151';
+                        }
                     }
                 });
 
