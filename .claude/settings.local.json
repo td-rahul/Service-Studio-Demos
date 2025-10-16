@@ -16,7 +16,12 @@
       "Bash(git push:*)",
       "Bash(git remote get-url:*)",
       "WebFetch(domain:alicegutd.github.io)",
-      "Read(//Users/alice.gu/Downloads/**)"
+      "Read(//Users/alice.gu/Downloads/**)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(gh api:*)",
+      "Bash(git remote add:*)",
+      "Bash(git fetch:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
