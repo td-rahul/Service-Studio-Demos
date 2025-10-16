@@ -370,15 +370,7 @@
                             navItem.style.color = '#6F2EFF';
                             navItem.style.borderRadius = '4px';
 
-                            // Add 2px purple bar at the very left edge
-                            const strip = document.createElement('div');
-                            strip.style.position = 'absolute';
-                            strip.style.left = '0px';
-                            strip.style.top = '0px';
-                            strip.style.bottom = '0px';
-                            strip.style.width = '2px';
-                            strip.style.backgroundColor = '#6F2EFF';
-                            navItem.appendChild(strip);
+                            // Selected state styling without purple strip
 
                             // Make text bold
                             const textSpan = navItem.querySelector('span');
