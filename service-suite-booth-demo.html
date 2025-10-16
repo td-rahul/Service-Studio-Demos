@@ -339,6 +339,12 @@
                 if (existingStrip) {
                     existingStrip.remove();
                 }
+
+                // Remove bold from text
+                const textSpan = item.querySelector('span');
+                if (textSpan) {
+                    textSpan.classList.remove('font-bold', 'font-medium');
+                }
             });
 
             // Set active state based on page
@@ -360,20 +366,20 @@
                             // Apply selected state component styling
                             navItem.className = 'flex items-center space-x-3 px-3 transition-colors relative overflow-hidden';
                             navItem.style.height = '48px';
-                            navItem.style.backgroundColor = '#F3F1FF';
-                            navItem.style.color = '#824BFB';
+                            navItem.style.backgroundColor = '#F3EEFF';
+                            navItem.style.color = '#6F2EFF';
                             navItem.style.borderRadius = '4px';
 
                             // Add left purple strip
                             const strip = document.createElement('div');
                             strip.className = 'absolute left-0 top-0 bottom-0 w-1';
-                            strip.style.backgroundColor = '#824BFB';
+                            strip.style.backgroundColor = '#6F2EFF';
                             navItem.insertBefore(strip, navItem.firstChild);
 
                             // Make text bold
                             const textSpan = navItem.querySelector('span');
                             if (textSpan) {
-                                textSpan.classList.add('font-medium');
+                                textSpan.classList.add('font-bold');
                             }
                         }
                     }
