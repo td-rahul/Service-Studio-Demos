@@ -28,6 +28,14 @@
         .nav-active {
             background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
         }
+        #rotating-text {
+            transition: opacity 0.15s ease-in-out;
+            min-width: 140px;
+            text-align: left;
+        }
+        #animated-placeholder {
+            transition: opacity 0.3s ease-in-out;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -182,10 +190,14 @@
                             <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm max-w-4xl mx-auto">
                                 <div class="relative">
                                     <textarea
-                                        placeholder="Ask Service AI about customers, issues, conversations, knowledge bases..."
+                                        id="ai-textarea"
                                         class="w-full p-6 text-lg border border-gray-200 rounded-xl resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                         rows="4"
                                     ></textarea>
+                                    <!-- Animated placeholder overlay -->
+                                    <div id="animated-placeholder" class="absolute top-6 left-6 text-lg text-gray-400 pointer-events-none">
+                                        Ask Service AI about <span id="rotating-text" class="inline-block">customers</span>...
+                                    </div>
                                     <button class="absolute bottom-4 right-4 bg-blue-400 hover:bg-blue-500 text-white px-6 py-2 rounded-lg flex items-center space-x-2 transition-colors">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
@@ -395,9 +407,56 @@
             }
         }
 
+        // Animated placeholder functionality
+        function initAnimatedPlaceholder() {
+            const rotatingWords = ['customers', 'issues', 'conversations', 'knowledge bases', 'analytics', 'workflows'];
+            const rotatingText = document.getElementById('rotating-text');
+            const textarea = document.getElementById('ai-textarea');
+            const placeholder = document.getElementById('animated-placeholder');
+            let currentIndex = 0;
+
+            function rotateText() {
+                if (rotatingText) {
+                    rotatingText.style.opacity = '0';
+                    setTimeout(() => {
+                        currentIndex = (currentIndex + 1) % rotatingWords.length;
+                        rotatingText.textContent = rotatingWords[currentIndex];
+                        rotatingText.style.opacity = '1';
+                    }, 150);
+                }
+            }
+
+            // Hide placeholder when user types
+            if (textarea && placeholder) {
+                textarea.addEventListener('input', function() {
+                    if (this.value.length > 0) {
+                        placeholder.style.display = 'none';
+                    } else {
+                        placeholder.style.display = 'block';
+                    }
+                });
+
+                textarea.addEventListener('focus', function() {
+                    if (this.value.length === 0) {
+                        placeholder.style.opacity = '0.5';
+                    }
+                });
+
+                textarea.addEventListener('blur', function() {
+                    if (this.value.length === 0) {
+                        placeholder.style.opacity = '1';
+                    }
+                });
+            }
+
+            // Start the rotation animation
+            setInterval(rotateText, 2000);
+        }
+
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             showPage('home');
+            initAnimatedPlaceholder();
         });
     </script>
 </body>
