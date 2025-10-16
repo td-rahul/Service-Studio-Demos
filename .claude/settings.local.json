@@ -21,7 +21,8 @@
       "Bash(gh api:*)",
       "Bash(git remote add:*)",
       "Bash(git fetch:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(git revert:*)"
     ],
     "deny": [],
     "ask": []
