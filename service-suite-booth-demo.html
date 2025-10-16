@@ -332,6 +332,7 @@
                 item.style.color = '';
                 item.style.height = '48px';
                 item.style.borderRadius = '';
+                item.style.paddingLeft = '';
                 item.className = 'flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors';
 
                 // Remove any existing left strip
@@ -364,13 +365,14 @@
                         const navItem = span.closest('a');
                         if (navItem) {
                             // Apply selected state component styling
-                            navItem.className = 'flex items-center space-x-3 px-3 transition-colors relative overflow-hidden';
+                            navItem.className = 'flex items-center space-x-3 transition-colors relative overflow-hidden';
                             navItem.style.height = '48px';
                             navItem.style.backgroundColor = '#F3EEFF';
                             navItem.style.color = '#6F2EFF';
                             navItem.style.borderRadius = '4px';
+                            navItem.style.paddingLeft = '12px'; // Same as px-3 (0.75rem = 12px)
 
-                            // Add left purple strip
+                            // Add left purple strip (positioned absolutely so it doesn't affect layout)
                             const strip = document.createElement('div');
                             strip.className = 'absolute left-0 top-0 bottom-0 w-1';
                             strip.style.backgroundColor = '#6F2EFF';
