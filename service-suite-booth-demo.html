@@ -1128,16 +1128,357 @@
                 <!-- Other pages would be similar... -->
                 <div id="conversations-page" class="page-content hidden">
                     <div class="space-y-8">
+                        <!-- Page Header -->
                         <div>
                             <h1 class="text-3xl font-bold text-gray-900">Conversations</h1>
                             <p class="text-gray-600 mt-2">Monitor and manage customer conversations</p>
                         </div>
-                        <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                            <h2 class="text-lg font-semibold text-gray-900 mb-4">Conversations Needing Attention</h2>
-                            <div class="space-y-4">
-                                <div class="p-4 border border-gray-200 rounded-lg">
-                                    <h3 class="font-medium">Payment method expired - urgent assistance needed</h3>
-                                    <p class="text-sm text-gray-600">Sarah Johnson • 5 minutes ago</p>
+
+                        <!-- Search Box -->
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                    </svg>
+                                </div>
+                                <input type="text" class="block w-full pl-10 pr-3 py-4 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 text-lg" placeholder="Search conversations, issues, support tickets...">
+                            </div>
+                        </div>
+
+                        <!-- Requiring Attention Section (Reused from Home Page) -->
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                            <div class="px-6 py-4 border-b border-gray-200">
+                                <h2 class="text-xl font-semibold text-gray-900">Requiring Attention</h2>
+                            </div>
+
+                            <div class="divide-y divide-gray-200">
+                                <!-- Sarah Johnson - Approval Needed -->
+                                <div class="p-6 border-l-4" style="border-left-color: #FCD3D6;">
+                                    <div class="flex items-start justify-between mb-4">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold" style="background-color: #854DFF;">
+                                                S
+                                            </div>
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900">Sarah Johnson</h3>
+                                                <p class="text-sm text-gray-500">Bronze Member • Treasure Apparel</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium" style="background-color: #FEF4F5; color: #7A121A;">
+                                                URGENT APPROVAL
+                                            </span>
+                                            <p class="text-sm text-gray-500 mt-1">1 min ago</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <p class="font-medium text-gray-900 mb-2">Issue: Multiple failed payment attempts triggering fraud alert</p>
+                                    </div>
+
+                                    <!-- AI Agent Analysis -->
+                                    <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                                        <div class="mb-3">
+                                            <h4 class="font-medium text-gray-900">AI Agent Analysis</h4>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm">⚠️</span>
+                                                <span class="text-sm text-gray-600">5 failed payments (30 min)</span>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm">🏠</span>
+                                                <span class="text-sm text-gray-600">Same billing address</span>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm">📱</span>
+                                                <span class="text-sm text-gray-600">Same device & IP</span>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm">💳</span>
+                                                <span class="text-sm text-gray-600">Different card numbers</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- AI Recommendation -->
+                                    <div class="bg-orange-50 rounded-lg p-4 mb-4">
+                                        <div class="mb-3">
+                                            <h4 class="font-medium text-gray-900">AI Risk Assessment for Sarah</h4>
+                                        </div>
+                                        <ol class="space-y-2">
+                                            <li class="flex items-start space-x-2">
+                                                <span class="font-medium text-black">1.</span>
+                                                <span class="text-sm"><strong>Low fraud risk</strong> - customer behavior matches previous patterns</span>
+                                            </li>
+                                            <li class="flex items-start space-x-2">
+                                                <span class="font-medium text-black">2.</span>
+                                                <span class="text-sm"><strong>Contact customer</strong> - verify payment method and offer assistance</span>
+                                            </li>
+                                        </ol>
+                                    </div>
+
+                                    <!-- Action Buttons -->
+                                    <div class="flex space-x-3">
+                                        <button class="flex-1 px-4 py-2 text-white text-sm font-medium rounded-lg flex items-center justify-center space-x-2" style="background-color: #047857; hover:background-color: #065f46;">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>Clear Alert</span>
+                                        </button>
+                                        <button class="flex-1 px-4 py-2 text-white text-sm font-medium rounded-lg flex items-center justify-center space-x-2" style="background-color: #1e40af; color: white;">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>Call Customer</span>
+                                        </button>
+                                        <button class="flex-1 px-4 py-2 text-white text-sm font-medium rounded-lg flex items-center justify-center space-x-2" style="background-color: #b91c1c;">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 008.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>Block Account</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Emma Parker - Approval Needed -->
+                                <div class="p-6 border-l-4" style="border-left-color: #FFE689;">
+                                    <div class="flex items-start justify-between mb-4">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold" style="background-color: #3068DF;">
+                                                E
+                                            </div>
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900">Emma Parker</h3>
+                                                <p class="text-sm text-gray-500">Gold Member • Treasure Apparel</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium" style="background-color: #FFF7DB; color: #826E25;">
+                                                APPROVAL NEEDED
+                                            </span>
+                                            <p class="text-sm text-gray-500 mt-1">3 min ago</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <p class="font-medium text-gray-900 mb-2">Issue: Coupon code 'FALL20' failed at checkout</p>
+                                    </div>
+
+                                    <!-- AI Agent Analysis -->
+                                    <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                                        <div class="mb-3">
+                                            <h4 class="font-medium text-gray-900">AI Agent Analysis</h4>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm">🏷️</span>
+                                                <span class="text-sm text-gray-600">Coupon expired yesterday</span>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm">💎</span>
+                                                <span class="text-sm text-gray-600">Gold loyalty tier</span>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm">💰</span>
+                                                <span class="text-sm text-gray-600">$2,300 lifetime value</span>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="text-sm">⭐</span>
+                                                <span class="text-sm text-gray-600">4.8/5 satisfaction rating</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- AI Recommendation -->
+                                    <div class="bg-green-50 rounded-lg p-4 mb-4">
+                                        <div class="mb-3">
+                                            <h4 class="font-medium text-gray-900">AI Recommendation for Emma</h4>
+                                        </div>
+                                        <ol class="space-y-2">
+                                            <li class="flex items-start space-x-2">
+                                                <span class="font-medium text-black">1.</span>
+                                                <span class="text-sm"><strong>Extend coupon</strong> - within policy for Gold members</span>
+                                            </li>
+                                            <li class="flex items-start space-x-2">
+                                                <span class="font-medium text-black">2.</span>
+                                                <span class="text-sm"><strong>Add $20 goodwill credit</strong> - based on loyalty tier & LTV</span>
+                                            </li>
+                                        </ol>
+                                    </div>
+
+                                    <!-- Action Buttons -->
+                                    <div class="flex space-x-3">
+                                        <button class="flex-1 px-4 py-2 text-white text-sm font-medium rounded-lg flex items-center justify-center space-x-2" style="background-color: #047857; hover:background-color: #065f46;">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>Approve All</span>
+                                        </button>
+                                        <button class="flex-1 px-4 py-2 text-white text-sm font-medium rounded-lg flex items-center justify-center space-x-2" style="background-color: #1e40af; color: white;">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>Partial Approval</span>
+                                        </button>
+                                        <button class="flex-1 px-4 py-2 text-white text-sm font-medium rounded-lg flex items-center justify-center space-x-2" style="background-color: #b91c1c;">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                            </svg>
+                                            <span>Take Over</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Autonomous AI Conversations Section -->
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                            <div class="px-6 py-4 border-b border-gray-200">
+                                <h2 class="text-xl font-semibold text-gray-900">AI Agents Handling Autonomously</h2>
+                                <p class="text-sm text-gray-600 mt-1">Conversations being managed by AI without human intervention</p>
+                            </div>
+
+                            <div class="divide-y divide-gray-200">
+                                <!-- James Wilson - Order Status -->
+                                <div class="p-6 border-l-4" style="border-left-color: #D4E6F5;">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold" style="background-color: #2563EB;">
+                                                J
+                                            </div>
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900">James Wilson</h3>
+                                                <p class="text-sm text-gray-500">Silver Member • Order #TR-2045</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium" style="background-color: #EBF8FF; color: #1E40AF;">
+                                                AI HANDLING
+                                            </span>
+                                            <p class="text-sm text-gray-500 mt-1">5 min ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <p class="font-medium text-gray-900 mb-1">Query: "Where is my order? It was supposed to arrive today."</p>
+                                        <p class="text-sm text-gray-600">AI Response: Tracking shows slight delay due to weather. Estimated delivery: tomorrow by 2 PM. Offering $5 credit for inconvenience.</p>
+                                    </div>
+                                    <div class="flex items-center space-x-4 text-sm text-gray-600">
+                                        <span class="flex items-center space-x-1">
+                                            <span>✅</span>
+                                            <span>Confidence: 95%</span>
+                                        </span>
+                                        <span class="flex items-center space-x-1">
+                                            <span>⏱️</span>
+                                            <span>Response time: 12s</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Lisa Brown - Return Process -->
+                                <div class="p-6 border-l-4" style="border-left-color: #D4E6F5;">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold" style="background-color: #7C3AED;">
+                                                L
+                                            </div>
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900">Lisa Brown</h3>
+                                                <p class="text-sm text-gray-500">Bronze Member • Return #RT-8834</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium" style="background-color: #EBF8FF; color: #1E40AF;">
+                                                AI HANDLING
+                                            </span>
+                                            <p class="text-sm text-gray-500 mt-1">8 min ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <p class="font-medium text-gray-900 mb-1">Query: "How do I return this sweater? Wrong size."</p>
+                                        <p class="text-sm text-gray-600">AI Response: Generated return label sent to email. Pickup scheduled for tomorrow. Free exchange available for size up/down.</p>
+                                    </div>
+                                    <div class="flex items-center space-x-4 text-sm text-gray-600">
+                                        <span class="flex items-center space-x-1">
+                                            <span>✅</span>
+                                            <span>Confidence: 98%</span>
+                                        </span>
+                                        <span class="flex items-center space-x-1">
+                                            <span>⏱️</span>
+                                            <span>Response time: 8s</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Michael Chang - Product Inquiry -->
+                                <div class="p-6 border-l-4" style="border-left-color: #D4E6F5;">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold" style="background-color: #059669;">
+                                                M
+                                            </div>
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900">Michael Chang</h3>
+                                                <p class="text-sm text-gray-500">Gold Member • Product Inquiry</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium" style="background-color: #EBF8FF; color: #1E40AF;">
+                                                AI HANDLING
+                                            </span>
+                                            <p class="text-sm text-gray-500 mt-1">12 min ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <p class="font-medium text-gray-900 mb-1">Query: "Do you have this jacket in XL? What's the material?"</p>
+                                        <p class="text-sm text-gray-600">AI Response: Yes, XL available. 80% cotton, 20% polyester blend. Premium water-resistant finish. Added to cart with Gold member discount.</p>
+                                    </div>
+                                    <div class="flex items-center space-x-4 text-sm text-gray-600">
+                                        <span class="flex items-center space-x-1">
+                                            <span>✅</span>
+                                            <span>Confidence: 92%</span>
+                                        </span>
+                                        <span class="flex items-center space-x-1">
+                                            <span>⏱️</span>
+                                            <span>Response time: 15s</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Rachel Martinez - Account Question -->
+                                <div class="p-6 border-l-4" style="border-left-color: #D4E6F5;">
+                                    <div class="flex items-start justify-between mb-3">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold" style="background-color: #DC2626;">
+                                                R
+                                            </div>
+                                            <div>
+                                                <h3 class="font-semibold text-gray-900">Rachel Martinez</h3>
+                                                <p class="text-sm text-gray-500">Silver Member • Account Settings</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium" style="background-color: #EBF8FF; color: #1E40AF;">
+                                                AI HANDLING
+                                            </span>
+                                            <p class="text-sm text-gray-500 mt-1">15 min ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <p class="font-medium text-gray-900 mb-1">Query: "How do I update my shipping address?"</p>
+                                        <p class="text-sm text-gray-600">AI Response: Guided through account settings. Address updated successfully. Confirmed address for pending orders will use new address.</p>
+                                    </div>
+                                    <div class="flex items-center space-x-4 text-sm text-gray-600">
+                                        <span class="flex items-center space-x-1">
+                                            <span>✅</span>
+                                            <span>Confidence: 97%</span>
+                                        </span>
+                                        <span class="flex items-center space-x-1">
+                                            <span>⏱️</span>
+                                            <span>Response time: 6s</span>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
