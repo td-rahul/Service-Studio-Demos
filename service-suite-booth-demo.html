@@ -45,6 +45,42 @@
         #animated-placeholder {
             transition: opacity 0.3s ease-in-out;
         }
+        .sidebar-collapsed {
+            width: 60px !important;
+        }
+        .sidebar-collapsed .nav-text {
+            display: none !important;
+        }
+        .sidebar-collapsed .nav-link {
+            justify-content: center !important;
+            padding-left: 0.75rem !important;
+            padding-right: 0.75rem !important;
+        }
+        .sidebar-collapsed .space-y-1 {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+        .sidebar-collapsed .flex-1.overflow-y-auto {
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+        }
+        #expanded-nav {
+            transition: width 0.3s ease-in-out;
+        }
+        .chat-interface-layout {
+            height: calc(100vh - 70px);
+            width: calc(100vw - 116px);
+            position: fixed;
+            top: 70px;
+            left: 116px; /* Position after dark strip (56px) + collapsed sidebar (60px) */
+            z-index: 5;
+        }
+        .chat-interface-layout .w-1\/4 {
+            height: 100%;
+        }
+        .chat-interface-layout .flex-1 {
+            height: 100%;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -133,45 +169,45 @@
             <div class="flex-1 overflow-y-auto p-4 pt-6">
                 <div class="space-y-1">
                     <!-- Home -->
-                    <a href="#" onclick="showPage('home')" class="flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
+                    <a href="#" onclick="showPage('home')" class="nav-link flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
                             <polyline stroke-linecap="round" stroke-linejoin="round" stroke-width="2" points="9,22 9,12 15,12 15,22"/>
                         </svg>
-                        <span>Home</span>
+                        <span class="nav-text">Home</span>
                     </a>
 
                     <!-- Customers -->
-                    <a href="#" onclick="showPage('customers')" class="flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
+                    <a href="#" onclick="showPage('customers')" class="nav-link flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                         </svg>
-                        <span>Customers</span>
+                        <span class="nav-text">Customers</span>
                     </a>
 
                     <!-- Conversations -->
-                    <a href="#" onclick="showPage('conversations')" class="flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
+                    <a href="#" onclick="showPage('conversations')" class="nav-link flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/>
                         </svg>
-                        <span>Conversations</span>
+                        <span class="nav-text">Conversations</span>
                     </a>
 
                     <!-- AI Agent Settings -->
-                    <a href="#" onclick="showPage('ai-settings')" class="flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
+                    <a href="#" onclick="showPage('ai-settings')" class="nav-link flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4">
                             <path d="M9.7668 5.68674C9.97222 5.13161 10.7574 5.1316 10.9628 5.68674L12.3376 9.40205C12.7251 10.4492 13.5508 11.2749 14.598 11.6624L18.3133 13.0372C18.8684 13.2426 18.8684 14.0278 18.3133 14.2332L14.598 15.608C13.5508 15.9955 12.7251 16.8211 12.3376 17.8683L10.9628 21.5836C10.7574 22.1388 9.97222 22.1388 9.7668 21.5836L8.39201 17.8683C8.00451 16.8211 7.17886 15.9955 6.13166 15.608L2.41635 14.2332C1.86122 14.0278 1.86122 13.2426 2.41635 13.0372L6.13166 11.6624C7.17886 11.2749 8.00451 10.4492 8.39201 9.40205L9.7668 5.68674Z" fill="currentColor"/>
                             <path d="M18.4149 2.16654C18.497 1.94449 18.8111 1.94449 18.8933 2.16654L19.4432 3.65266C19.5982 4.07154 19.9285 4.4018 20.3473 4.5568L21.8335 5.10672C22.0555 5.18889 22.0555 5.50296 21.8335 5.58513L20.3473 6.13504C19.9285 6.29004 19.5982 6.6203 19.4432 7.03918L18.8933 8.5253C18.8111 8.74736 18.497 8.74736 18.4149 8.5253L17.865 7.03918C17.71 6.6203 17.3797 6.29004 16.9608 6.13504L15.4747 5.58513C15.2526 5.50296 15.2526 5.18889 15.4747 5.10672L16.9608 4.5568C17.3797 4.4018 17.71 4.07154 17.865 3.65266L18.4149 2.16654Z" fill="currentColor"/>
                         </svg>
-                        <span>AI Agent Settings</span>
+                        <span class="nav-text">AI Agent Settings</span>
                     </a>
 
                     <!-- Integrations -->
-                    <a href="#" onclick="showPage('integrations')" class="flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
+                    <a href="#" onclick="showPage('integrations')" class="nav-link flex items-center space-x-3 px-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors" style="height: 48px;">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
                         </svg>
-                        <span>Integrations</span>
+                        <span class="nav-text">Integrations</span>
                     </a>
                 </div>
             </div>
@@ -1608,6 +1644,253 @@
                     </div>
                 </div>
 
+                <!-- Chat Interface Page -->
+                <div id="chat-interface-page" class="page-content hidden">
+                    <div class="chat-interface-layout flex">
+                        <!-- Left Column: Chat Interface (1/4 width) -->
+                        <div class="w-1/4 bg-white border-r border-gray-200 flex flex-col h-full">
+                            <!-- Chat Header -->
+                            <div class="border-b border-gray-200 flex items-center pl-4" style="height: 60px;">
+                                <div class="flex items-center">
+                                    <svg width="64" height="64" viewBox="0 0 48 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <g filter="url(#filter0_d_12659_24476)">
+                                                <path d="M26.2096 14H5.71977C5.26682 14 4.8328 14.1746 4.51497 14.4847L0.34033 18.558C-0.115914 19.0031 -0.113072 19.7186 0.346695 20.1604L15.0466 34.2859C15.5749 34.7936 16.4315 34.7936 16.9598 34.2859L31.6533 20.1665C32.1156 19.7223 32.1156 19.0021 31.6533 18.5579L27.4053 14.4759C27.0882 14.1712 26.6581 14 26.2096 14Z" fill="url(#paint0_linear_12659_24476)"/>
+                                            </g>
+                                            <g clip-path="url(#paint1_angular_12659_24476_clip_path)" data-figma-skip-parse="true"><g transform="matrix(6.51759e-10 0.00541953 -0.00541953 6.51759e-10 16.0873 23.9141)"><foreignObject x="-1073.82" y="-1073.82" width="2147.64" height="2147.64"><div xmlns="http://www.w3.org/1999/xhtml" style="background:conic-gradient(from 90deg,rgba(115, 195, 230, 1) 0deg,rgba(255, 255, 255, 1) 270deg,rgba(251, 155, 255, 1) 288deg,rgba(115, 195, 230, 1) 360deg);height:100%;width:100%;opacity:1"></div></foreignObject></g></g><path d="M15.6198 18.9325C15.7507 18.5785 16.2514 18.5785 16.3823 18.9325L17.2589 21.3013C17.506 21.969 18.0324 22.4954 18.7001 22.7425L21.0689 23.619C21.4229 23.75 21.4229 24.2506 21.0689 24.3816L18.7001 25.2582C18.0324 25.5052 17.506 26.0317 17.2589 26.6993L16.3823 29.0682C16.2514 29.4221 15.7507 29.4221 15.6198 29.0682L14.7432 26.6993C14.4962 26.0317 13.9697 25.5052 13.302 25.2582L10.9332 24.3816C10.5792 24.2506 10.5792 23.75 10.9332 23.619L13.302 22.7425C13.9697 22.4954 14.4962 21.969 14.7432 21.3013L15.6198 18.9325Z" data-figma-gradient-fill="{&quot;type&quot;:&quot;GRADIENT_ANGULAR&quot;,&quot;stops&quot;:[{&quot;color&quot;:{&quot;r&quot;:0.45098039507865906,&quot;g&quot;:0.76470589637756348,&quot;b&quot;:0.90196079015731812,&quot;a&quot;:1.0},&quot;position&quot;:0.0},{&quot;color&quot;:{&quot;r&quot;:1.0,&quot;g&quot;:1.0,&quot;b&quot;:1.0,&quot;a&quot;:1.0},&quot;position&quot;:0.750},{&quot;color&quot;:{&quot;r&quot;:0.98703992366790771,&quot;g&quot;:0.61119663715362549,&quot;b&quot;:1.0,&quot;a&quot;:1.0},&quot;position&quot;:0.80000001192092896}],&quot;stopsVar&quot;:[{&quot;color&quot;:{&quot;r&quot;:0.45098039507865906,&quot;g&quot;:0.76470589637756348,&quot;b&quot;:0.90196079015731812,&quot;a&quot;:1.0},&quot;position&quot;:0.0},{&quot;color&quot;:{&quot;r&quot;:1.0,&quot;g&quot;:1.0,&quot;b&quot;:1.0,&quot;a&quot;:1.0},&quot;position&quot;:0.750},{&quot;color&quot;:{&quot;r&quot;:0.98703992366790771,&quot;g&quot;:0.61119663715362549,&quot;b&quot;:1.0,&quot;a&quot;:1.0},&quot;position&quot;:0.80000001192092896}],&quot;transform&quot;:{&quot;m00&quot;:1.3035175925324438e-06,&quot;m01&quot;:-10.839065551757812,&quot;m02&quot;:21.506788253784180,&quot;m10&quot;:10.839068412780762,&quot;m11&quot;:1.3035171377850929e-06,&quot;m12&quot;:18.494516372680664},&quot;opacity&quot;:1.0,&quot;blendMode&quot;:&quot;NORMAL&quot;,&quot;visible&quot;:true}"/>
+                                            <g clip-path="url(#paint2_angular_12659_24476_clip_path)" data-figma-skip-parse="true"><g transform="matrix(3.76233e-10 0.00312847 -0.00312847 3.76233e-10 21.0416 18.9879)"><foreignObject x="-1127.87" y="-1127.87" width="2255.74" height="2255.74"><div xmlns="http://www.w3.org/1999/xhtml" style="background:conic-gradient(from 90deg,rgba(115, 195, 230, 1) 0deg,rgba(255, 255, 255, 1) 270deg,rgba(251, 155, 255, 1) 288deg,rgba(115, 195, 230, 1) 360deg);height:100%;width:100%;opacity:1"></div></foreignObject></g></g><path d="M20.7717 16.1122C20.8473 15.9079 21.1363 15.9079 21.2119 16.1122L21.7179 17.4797C21.8605 17.8651 22.1644 18.169 22.5498 18.3116L23.9173 18.8176C24.1216 18.8932 24.1216 19.1822 23.9173 19.2578L22.5498 19.7638C22.1644 19.9064 21.8605 20.2103 21.7179 20.5957L21.2119 21.9632C21.1363 22.1675 20.8473 22.1675 20.7717 21.9632L20.2657 20.5957C20.1231 20.2103 19.8192 19.9064 19.4338 19.7638L18.0663 19.2578C17.862 19.1822 17.862 18.8932 18.0663 18.8176L19.4338 18.3116C19.8192 18.169 20.1231 17.8651 20.2657 17.4797L20.7717 16.1122Z" data-figma-gradient-fill="{&quot;type&quot;:&quot;GRADIENT_ANGULAR&quot;,&quot;stops&quot;:[{&quot;color&quot;:{&quot;r&quot;:0.45098039507865906,&quot;g&quot;:0.76470589637756348,&quot;b&quot;:0.90196079015731812,&quot;a&quot;:1.0},&quot;position&quot;:0.0},{&quot;color&quot;:{&quot;r&quot;:1.0,&quot;g&quot;:1.0,&quot;b&quot;:1.0,&quot;a&quot;:1.0},&quot;position&quot;:0.750},{&quot;color&quot;:{&quot;r&quot;:0.98703992366790771,&quot;g&quot;:0.61119663715362549,&quot;b&quot;:1.0,&quot;a&quot;:1.0},&quot;position&quot;:0.80000001192092896}],&quot;stopsVar&quot;:[{&quot;color&quot;:{&quot;r&quot;:0.45098039507865906,&quot;g&quot;:0.76470589637756348,&quot;b&quot;:0.90196079015731812,&quot;a&quot;:1.0},&quot;position&quot;:0.0},{&quot;color&quot;:{&quot;r&quot;:1.0,&quot;g&quot;:1.0,&quot;b&quot;:1.0,&quot;a&quot;:1.0},&quot;position&quot;:0.750},{&quot;color&quot;:{&quot;r&quot;:0.98703992366790771,&quot;g&quot;:0.61119663715362549,&quot;b&quot;:1.0,&quot;a&quot;:1.0},&quot;position&quot;:0.80000001192092896}],&quot;transform&quot;:{&quot;m00&quot;:7.5246691721986281e-07,&quot;m01&quot;:-6.2569456100463867,&quot;m02&quot;:24.170030593872070,&quot;m10&quot;:6.2569460868835449,&quot;m11&quot;:7.5246663300276850e-07,&quot;m12&quot;:15.859420776367188},&quot;opacity&quot;:1.0,&quot;blendMode&quot;:&quot;NORMAL&quot;,&quot;visible&quot;:true}"/>
+                                            <defs>
+                                                <filter id="filter0_d_12659_24476" x="-16" y="0" width="64" height="52.667" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                                    <feOffset dy="2"/>
+                                                    <feGaussianBlur stdDeviation="8"/>
+                                                    <feComposite in2="hardAlpha" operator="out"/>
+                                                    <feColorMatrix type="matrix" values="0 0 0 0 0.639216 0 0 0 0 0.478431 0 0 0 0 0.992157 0 0 0 0.33 0"/>
+                                                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_12659_24476"/>
+                                                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_12659_24476" result="shape"/>
+                                                </filter>
+                                                <clipPath id="paint1_angular_12659_24476_clip_path"><path d="M15.6198 18.9325C15.7507 18.5785 16.2514 18.5785 16.3823 18.9325L17.2589 21.3013C17.506 21.969 18.0324 22.4954 18.7001 22.7425L21.0689 23.619C21.4229 23.75 21.4229 24.2506 21.0689 24.3816L18.7001 25.2582C18.0324 25.5052 17.506 26.0317 17.2589 26.6993L16.3823 29.0682C16.2514 29.4221 15.7507 29.4221 15.6198 29.0682L14.7432 26.6993C14.4962 26.0317 13.9697 25.5052 13.302 25.2582L10.9332 24.3816C10.5792 24.2506 10.5792 23.75 10.9332 23.619L13.302 22.7425C13.9697 22.4954 14.4962 21.969 14.7432 21.3013L15.6198 18.9325Z"/></clipPath><clipPath id="paint2_angular_12659_24476_clip_path"><path d="M20.7717 16.1122C20.8473 15.9079 21.1363 15.9079 21.2119 16.1122L21.7179 17.4797C21.8605 17.8651 22.1644 18.169 22.5498 18.3116L23.9173 18.8176C24.1216 18.8932 24.1216 19.1822 23.9173 19.2578L22.5498 19.7638C22.1644 19.9064 21.8605 20.2103 21.7179 20.5957L21.2119 21.9632C21.1363 22.1675 20.8473 22.1675 20.7717 21.9632L20.2657 20.5957C20.1231 20.2103 19.8192 19.9064 19.4338 19.7638L18.0663 19.2578C17.862 19.1822 17.862 18.8932 18.0663 18.8176L19.4338 18.3116C19.8192 18.169 20.1231 17.8651 20.2657 17.4797L20.7717 16.1122Z"/></clipPath><linearGradient id="paint0_linear_12659_24476" x1="32" y1="14" x2="1.07604" y2="36.383" gradientUnits="userSpaceOnUse">
+                                                    <stop stop-color="#A37AFD"/>
+                                                    <stop offset="1" stop-color="#0095FF"/>
+                                                </linearGradient>
+                                            </defs>
+                                        </svg>
+                                    <div style="margin-left: -10px;">
+                                        <h3 class="font-bold text-lg text-gray-900">Service AI</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Chat Messages -->
+                            <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4">
+                                <!-- Messages will be dynamically added here -->
+                            </div>
+
+
+                            <!-- Chat Input -->
+                            <div class="p-4">
+                                <div class="relative bg-gray-50 border border-gray-200 rounded-xl" style="padding: 16px 16px 28px 16px;">
+                                    <!-- Input Field -->
+                                    <input
+                                        type="text"
+                                        id="chat-input"
+                                        placeholder="Send a message"
+                                        class="w-full bg-transparent border-0 text-gray-600 placeholder-gray-400 focus:outline-none focus:ring-0 pr-12"
+                                    />
+
+                                    <!-- Send Button -->
+                                    <button
+                                        id="chat-send-btn"
+                                        class="absolute bottom-5 right-4 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg transition-colors duration-200"
+                                    >
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Dynamic Content (3/4 width) -->
+                        <div class="flex-1 bg-gray-50 flex flex-col h-full">
+                            <div id="chat-content-area" class="flex-1 p-6">
+                                <!-- Welcome State -->
+                                <div id="welcome-state" class="h-full flex items-center justify-center">
+                                    <div class="text-center">
+                                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                            <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </div>
+                                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Start a conversation</h3>
+                                        <p class="text-gray-600">Ask Service AI about customers, issues, or any support-related questions.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Customer Profile View (hidden by default) -->
+                                <div id="customer-profile-view" class="hidden h-full">
+                                    <!-- Customer profile content will be loaded here -->
+                                </div>
+
+                                <!-- Conversation View (hidden by default) -->
+                                <div id="conversation-view" class="hidden h-full">
+                                    <div class="h-full flex flex-col">
+                                        <!-- Header -->
+                                        <div class="bg-white border-b border-gray-200 p-4">
+                                            <div class="flex items-center space-x-3">
+                                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                                                    <span class="text-blue-600 font-semibold text-sm">EP</span>
+                                                </div>
+                                                <div>
+                                                    <h3 class="font-semibold text-gray-900">Emma Parker</h3>
+                                                    <p class="text-sm text-green-600">● Online - Gold Member</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Chat Messages -->
+                                        <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+                                            <!-- Emma's message -->
+                                            <div class="flex justify-end">
+                                                <div class="bg-blue-500 text-white px-4 py-2 rounded-lg max-w-xs">
+                                                    Hi, I'm trying to use the coupon code I received, but it isn't working at checkout.
+                                                </div>
+                                            </div>
+
+                                            <!-- AI Agent response -->
+                                            <div class="flex justify-start">
+                                                <div class="bg-white border border-gray-200 px-4 py-2 rounded-lg max-w-md shadow-sm">
+                                                    <div class="text-xs text-gray-500 mb-1">AI Agent (Service AI Copilot)</div>
+                                                    I'm sorry about that, Emma. I see the coupon you're using has expired. Let me take care of this for you — I've just generated a brand-new 25% off coupon you can use right away: TREASURE25.
+                                                </div>
+                                            </div>
+
+                                            <!-- Emma's response -->
+                                            <div class="flex justify-end">
+                                                <div class="bg-blue-500 text-white px-4 py-2 rounded-lg max-w-xs">
+                                                    Oh great, thank you!
+                                                </div>
+                                            </div>
+
+                                            <!-- AI Agent second response -->
+                                            <div class="flex justify-start">
+                                                <div class="bg-white border border-gray-200 px-4 py-2 rounded-lg max-w-md shadow-sm">
+                                                    <div class="text-xs text-gray-500 mb-1">AI Agent (Alex)</div>
+                                                    Since you're a Gold Member and a loyal customer, I've also added a $15 credit to your account as a goodwill gesture. You'll see it automatically applied to your next purchase.
+                                                </div>
+                                            </div>
+
+                                            <!-- Emma's response -->
+                                            <div class="flex justify-end">
+                                                <div class="bg-blue-500 text-white px-4 py-2 rounded-lg max-w-xs">
+                                                    Wow, that's really thoughtful. Appreciate the quick help!
+                                                </div>
+                                            </div>
+
+                                            <!-- AI Agent final response -->
+                                            <div class="flex justify-start">
+                                                <div class="bg-white border border-gray-200 px-4 py-2 rounded-lg max-w-md shadow-sm">
+                                                    <div class="text-xs text-gray-500 mb-1">AI Agent (Alex)</div>
+                                                    Of course, Emma. You're all set now — your new coupon and credit are active. Thanks for being such a valued member of our community.
+                                                </div>
+                                            </div>
+
+                                            <!-- Approval Notice -->
+                                            <div class="flex justify-center">
+                                                <div class="bg-yellow-50 border-2 border-yellow-200 px-4 py-3 rounded-lg max-w-md">
+                                                    <div class="flex items-center space-x-2">
+                                                        <div class="w-5 h-5 bg-yellow-500 rounded-full flex items-center justify-center">
+                                                            <span class="text-white text-xs">!</span>
+                                                        </div>
+                                                        <div class="text-sm">
+                                                            <div class="font-semibold text-yellow-800">Approval Required</div>
+                                                            <div class="text-yellow-700">$15 credit exceeds autonomy limit</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approval Modal -->
+                <div id="approval-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+                    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+                        <div class="border-b border-gray-200 px-6 py-4">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-lg font-semibold text-gray-900">Approval Request</h3>
+                                <button id="close-modal" class="text-gray-400 hover:text-gray-600">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="px-6 py-4">
+                            <div class="space-y-4">
+                                <!-- Customer Info -->
+                                <div class="flex items-center space-x-3 p-4 bg-gray-50 rounded-lg">
+                                    <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold" style="background-color: #3068DF;">
+                                        E
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Emma Parker</h4>
+                                        <p class="text-sm text-gray-500">Gold Member • Treasure Apparel</p>
+                                    </div>
+                                </div>
+
+                                <!-- Issue Description -->
+                                <div>
+                                    <h4 class="font-medium text-gray-900 mb-2">Issue: Coupon code 'FALL20' failed at checkout</h4>
+                                    <p class="text-sm text-gray-600">Customer is trying to use an expired coupon code during checkout. AI analysis suggests approving the extension based on customer loyalty tier.</p>
+                                </div>
+
+                                <!-- AI Analysis -->
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="bg-gray-50 rounded-lg p-4">
+                                        <h5 class="font-medium text-gray-900 mb-2">AI Analysis</h5>
+                                        <div class="space-y-2 text-sm">
+                                            <div class="flex items-center space-x-2">
+                                                <span>🏷️</span>
+                                                <span class="text-gray-600">Coupon expired yesterday</span>
+                                            </div>
+                                            <div class="flex items-center space-x-2">
+                                                <span>💎</span>
+                                                <span class="text-gray-600">Gold loyalty tier</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-green-50 rounded-lg p-4">
+                                        <h5 class="font-medium text-gray-900 mb-2">Recommendation</h5>
+                                        <div class="space-y-2 text-sm">
+                                            <div class="flex items-start space-x-2">
+                                                <span class="font-medium text-black">1.</span>
+                                                <span><strong>Extend coupon</strong> - within policy for Gold members</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-gray-200 px-6 py-4">
+                            <div class="flex space-x-3 justify-end">
+                                <button id="deny-btn" class="px-4 py-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                                    Deny and Take Over
+                                </button>
+                                <button id="approve-btn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                    Approve
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="integrations-page" class="page-content hidden">
                     <div class="space-y-8">
                         <div>
@@ -1645,13 +1928,34 @@
             });
 
             // Show selected page
-            const targetPage = document.getElementById(pageId + '-page');
+            let targetPage;
+            if (pageId === 'chat-interface') {
+                targetPage = document.getElementById('chat-interface-page');
+            } else {
+                targetPage = document.getElementById(pageId + '-page');
+
+                // If navigating away from chat interface, restore sidebar
+                if (isInChatMode && pageId !== 'chat-interface') {
+                    exitChatMode();
+                }
+            }
+
             if (targetPage) {
                 targetPage.classList.remove('hidden');
             }
 
             // Update navigation active states
             updateNavigationStates(pageId);
+        }
+
+        function exitChatMode() {
+            isInChatMode = false;
+            const sidebar = document.getElementById('expanded-nav');
+            if (sidebar) {
+                sidebar.classList.remove('sidebar-collapsed');
+                sidebar.style.width = ''; // Remove inline style
+                console.log('Exited chat mode, sidebar restored');
+            }
         }
 
         function updateNavigationStates(activePageId) {
@@ -1818,10 +2122,897 @@
             animateText();
         }
 
+        // Chat Interface Functions
+        let currentChatStep = 0;
+        let isInChatMode = false;
+
+        function startChatInterface(initialQuery) {
+            console.log('Starting chat interface with query:', initialQuery);
+            isInChatMode = true;
+            currentChatStep = 0;
+
+            // Show chat interface page
+            showPage('chat-interface');
+
+            // Force sidebar collapse immediately
+            const sidebar = document.getElementById('expanded-nav');
+            console.log('Sidebar element found:', sidebar);
+            if (sidebar) {
+                console.log('Adding sidebar-collapsed class');
+                sidebar.classList.add('sidebar-collapsed');
+                // Force immediate layout update
+                sidebar.style.width = '60px';
+                console.log('Sidebar collapsed, width set to 60px');
+                console.log('Sidebar classes:', sidebar.className);
+            } else {
+                console.error('Sidebar element not found!');
+            }
+
+            // Add initial user message
+            setTimeout(() => {
+                addChatMessage(initialQuery, 'user');
+
+                // Check if query contains Emma Parker
+                if (initialQuery.toLowerCase().includes('emma parker')) {
+                    handleEmmaParkerFlow();
+                } else {
+                    // Generic response for other queries
+                    setTimeout(() => {
+                        addChatMessage("I'm searching for information about '" + initialQuery + "'. Let me help you with that.", 'ai');
+                    }, 1000);
+                }
+            }, 500);
+        }
+
+        function addChatMessage(message, sender) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+
+            if (sender === 'user') {
+                messageDiv.className = 'flex justify-end';
+                messageDiv.innerHTML = `
+                    <div class="bg-gray-200 text-gray-800 px-4 py-2 max-w-xs" style="border-radius: 18px 6px 18px 18px;">
+                        ${message}
+                    </div>
+                `;
+            } else {
+                messageDiv.className = 'flex justify-start';
+                messageDiv.innerHTML = `
+                    <div class="text-gray-900 py-2 max-w-md">
+                        ${message}
+                    </div>
+                `;
+            }
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showAIThinking() {
+            // Add thinking process as a chat message
+            const chatMessages = document.getElementById('chat-messages');
+            const thinkingDiv = document.createElement('div');
+            thinkingDiv.className = 'flex justify-start';
+            thinkingDiv.style.marginTop = '32px';
+            thinkingDiv.id = 'ai-thinking-message';
+
+            thinkingDiv.innerHTML = `
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 max-w-md">
+                    <div class="flex items-center space-x-2 cursor-pointer" onclick="toggleThinkingSteps()">
+                        <div id="thinking-icon" class="w-5 h-5 bg-gradient-to-r from-blue-500 to-purple-600 rounded flex items-center justify-center">
+                            <svg class="w-3 h-3 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                        </div>
+                        <span id="thinking-title" class="text-sm font-medium text-blue-800">Accessing Diamond Record...</span>
+                        <svg id="thinking-arrow" class="w-4 h-4 text-blue-600 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div id="thinking-steps" class="text-xs text-blue-700 mt-2 hidden">
+                        <!-- All thinking steps will be stored here when expanded -->
+                    </div>
+                    <div id="current-step" class="text-xs text-blue-700 mt-1">
+                        <!-- Current step being processed -->
+                    </div>
+                </div>
+            `;
+
+            chatMessages.appendChild(thinkingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Start the thinking process animation
+            animateThinkingSteps();
+        }
+
+        function hideAIThinking() {
+            // Don't remove the thinking message - keep it in chat after completion
+            // This function is now only used to stop the animation
+        }
+
+        function animateThinkingSteps() {
+            const thinkingSteps = [
+                "Accessing Diamond Record...",
+                "Searching for Emma Parker...",
+                "Found customer profile",
+                "Analyzing current status..."
+            ];
+
+            const stepsDiv = document.getElementById('thinking-steps');
+            const currentStepDiv = document.getElementById('current-step');
+            const titleSpan = document.getElementById('thinking-title');
+            const iconDiv = document.getElementById('thinking-icon');
+
+            let currentStep = 0;
+            const allSteps = []; // Store all steps for the expanded view
+
+            function showNextStep() {
+                if (currentStep < thinkingSteps.length) {
+                    // Update title with current thinking step
+                    titleSpan.textContent = thinkingSteps[currentStep];
+
+                    // Store step for expanded view
+                    allSteps.push(thinkingSteps[currentStep]);
+
+                    currentStep++;
+
+                    // Continue to next step after delay
+                    if (currentStep < thinkingSteps.length) {
+                        setTimeout(showNextStep, 1000);
+                    } else {
+                        // Thinking complete - update UI
+                        completeThinking();
+                    }
+                }
+            }
+
+            function completeThinking() {
+                // Stop spinning animation
+                iconDiv.querySelector('svg').classList.remove('animate-spin');
+
+                // Update icon to show completion
+                iconDiv.innerHTML = `
+                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                `;
+
+                // Hide current step display (not used in this implementation)
+                currentStepDiv.style.display = 'none';
+
+                // Update title to show collapsed state
+                titleSpan.textContent = 'Show thinking';
+
+                // Populate the expandable steps list
+                stepsDiv.innerHTML = allSteps.map(step => `<div class="text-blue-600 opacity-75">• ${step}</div>`).join('');
+            }
+
+            // Start the animation
+            setTimeout(showNextStep, 500);
+        }
+
+        function toggleThinkingSteps() {
+            const stepsDiv = document.getElementById('thinking-steps');
+            const arrow = document.getElementById('thinking-arrow');
+
+            if (stepsDiv.classList.contains('hidden')) {
+                // Expand
+                stepsDiv.classList.remove('hidden');
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                // Collapse
+                stepsDiv.classList.add('hidden');
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function showLoadingThinking() {
+            // Add loading thinking process as a chat message
+            const chatMessages = document.getElementById('chat-messages');
+            const thinkingDiv = document.createElement('div');
+            thinkingDiv.className = 'flex justify-start';
+            thinkingDiv.style.marginTop = '32px';
+            thinkingDiv.id = 'loading-thinking-message';
+
+            thinkingDiv.innerHTML = `
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 max-w-md">
+                    <div class="flex items-center space-x-2 cursor-pointer" onclick="toggleLoadingSteps()">
+                        <div id="loading-icon" class="w-5 h-5 bg-gradient-to-r from-blue-500 to-purple-600 rounded flex items-center justify-center">
+                            <svg class="w-3 h-3 text-white animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                        </div>
+                        <span id="loading-title" class="text-sm font-medium text-blue-800">Loading conversation...</span>
+                        <svg id="loading-arrow" class="w-4 h-4 text-blue-600 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </div>
+                    <div id="loading-steps" class="text-xs text-blue-700 mt-2 hidden">
+                        <!-- All loading steps will be stored here when expanded -->
+                    </div>
+                </div>
+            `;
+
+            chatMessages.appendChild(thinkingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Start the loading process animation
+            animateLoadingSteps();
+        }
+
+        function animateLoadingSteps() {
+            const loadingSteps = [
+                "Connecting to live chat session...",
+                "Retrieving conversation history...",
+                "Loading approval request details..."
+            ];
+
+            const stepsDiv = document.getElementById('loading-steps');
+            const titleSpan = document.getElementById('loading-title');
+            const iconDiv = document.getElementById('loading-icon');
+
+            let currentStep = 0;
+            const allSteps = []; // Store all steps for the expanded view
+
+            function showNextLoadingStep() {
+                if (currentStep < loadingSteps.length) {
+                    // Update title with current loading step
+                    titleSpan.textContent = loadingSteps[currentStep];
+
+                    // Store step for expanded view
+                    allSteps.push(loadingSteps[currentStep]);
+
+                    currentStep++;
+
+                    // Continue to next step after delay
+                    if (currentStep < loadingSteps.length) {
+                        setTimeout(showNextLoadingStep, 800);
+                    } else {
+                        // Loading complete - update UI
+                        completeLoading();
+                    }
+                }
+            }
+
+            function completeLoading() {
+                // Stop spinning animation
+                iconDiv.querySelector('svg').classList.remove('animate-spin');
+
+                // Update icon to show completion
+                iconDiv.innerHTML = `
+                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                `;
+
+                // Update title to show completed state
+                titleSpan.textContent = 'Show loading details';
+
+                // Populate the expandable steps list
+                stepsDiv.innerHTML = allSteps.map(step => `<div class="text-blue-600 opacity-75">• ${step}</div>`).join('');
+
+                // Load the actual conversation content in right column
+                loadConversationContent();
+            }
+
+            // Start the animation
+            setTimeout(showNextLoadingStep, 500);
+        }
+
+        function toggleLoadingSteps() {
+            const stepsDiv = document.getElementById('loading-steps');
+            const arrow = document.getElementById('loading-arrow');
+
+            if (stepsDiv.classList.contains('hidden')) {
+                // Expand
+                stepsDiv.classList.remove('hidden');
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                // Collapse
+                stepsDiv.classList.add('hidden');
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function loadConversationContent() {
+            const conversationView = document.getElementById('conversation-view');
+
+            // Replace loading state with actual conversation content in two-column layout
+            conversationView.innerHTML = `
+                <div class="h-full flex">
+                    <!-- Left Column: Chat Window -->
+                    <div class="flex-1 mr-6">
+                        <div class="bg-white rounded-lg border border-gray-200 h-full flex flex-col">
+                        <!-- Customer Header -->
+                        <div class="border-b border-gray-200 px-4 py-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center">
+                                        <span class="text-white text-sm font-medium">EP</span>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="font-medium">Emma Parker</span>
+                                            <span class="text-sm bg-gray-100 px-2 py-1 rounded">Web</span>
+                                        </div>
+                                        <div class="flex items-center space-x-2 text-sm text-gray-600">
+                                            <span>emma.parker@email.com</span>
+                                            <span>•</span>
+                                            <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Active</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <button class="p-2 hover:bg-gray-100 rounded">📞</button>
+                                    <button class="p-2 hover:bg-gray-100 rounded">🎥</button>
+                                    <button class="p-2 hover:bg-gray-100 rounded">👥</button>
+                                    <button class="p-2 hover:bg-gray-100 rounded">⋯</button>
+                                </div>
+                            </div>
+                            <div class="mt-2 text-sm text-gray-600">
+                                Conversation started 6/15/2023 • 5 messages
+                            </div>
+                        </div>
+
+
+                        <!-- Chat Messages -->
+                        <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50">
+                            <!-- Emma's first message -->
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white text-xs">EP</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-1">
+                                        <span class="font-medium text-sm">Emma Parker</span>
+                                        <span class="text-xs text-gray-500">15 min ago</span>
+                                    </div>
+                                    <div class="bg-white border border-gray-200 rounded-lg p-3 max-w-md">
+                                        Hi, I'm trying to use the coupon code I received, but it isn't working at checkout.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- AI Agent response -->
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white text-xs">AJ</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-1">
+                                        <span class="font-medium text-sm">Alex Johnson</span>
+                                        <span class="text-xs text-gray-500">10 min ago</span>
+                                    </div>
+                                    <div class="bg-blue-500 text-white rounded-lg p-3 max-w-md">
+                                        I'm sorry about that, Emma. I see the coupon you're using has expired. Let me take care of this for you — I've just generated a brand-new 25% off coupon you can use right away: TREASURE25.
+                                    </div>
+                                    <div class="text-xs text-green-600 mt-1">✓ Delivered</div>
+                                </div>
+                            </div>
+
+                            <!-- Emma's response -->
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white text-xs">EP</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-1">
+                                        <span class="font-medium text-sm">Emma Parker</span>
+                                        <span class="text-xs text-gray-500">5 min ago</span>
+                                    </div>
+                                    <div class="bg-white border border-gray-200 rounded-lg p-3 max-w-md">
+                                        Oh great, thank you!
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- AI Agent second response -->
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white text-xs">AJ</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-1">
+                                        <span class="font-medium text-sm">Alex Johnson</span>
+                                        <span class="text-xs text-gray-500">4 min ago</span>
+                                    </div>
+                                    <div class="bg-blue-500 text-white rounded-lg p-3 max-w-md">
+                                        Since you're a Gold Member and a loyal customer, I've also added a $15 credit to your account as a goodwill gesture. You'll see it automatically applied to your next purchase.
+                                    </div>
+                                    <div class="text-xs text-green-600 mt-1">✓ Delivered</div>
+                                </div>
+                            </div>
+
+                            <!-- Emma's final response -->
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span class="text-white text-xs">EP</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2 mb-1">
+                                        <span class="font-medium text-sm">Emma Parker</span>
+                                        <span class="text-xs text-gray-500">2 min ago</span>
+                                    </div>
+                                    <div class="bg-white border border-gray-200 rounded-lg p-3 max-w-md">
+                                        Wow, that's really thoughtful. Appreciate the quick help!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Suggested Response -->
+                        <div class="border-t border-gray-200 p-4 bg-blue-50">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-blue-600">🤖</span>
+                                <span class="font-medium text-blue-900">AI Suggested Response</span>
+                                <div class="flex-1"></div>
+                                <button class="text-sm text-gray-600 hover:text-gray-800">🔄</button>
+                                <button class="text-sm text-gray-600 hover:text-gray-800">📋</button>
+                            </div>
+                            <div class="bg-white border border-blue-200 rounded-lg p-3 mb-3">
+                                <p class="text-sm text-gray-700">I've checked your account and found that it was locked due to multiple failed login attempts. I've unlocked it now, and you should be able to log in with your password.</p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <button class="text-sm text-blue-600 hover:text-blue-800">Dismiss</button>
+                                <div class="flex items-center space-x-2">
+                                    <button class="text-sm text-blue-600 hover:text-blue-800">🔄 Let AI Reply</button>
+                                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">Use AI Suggestion →</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Response Input -->
+                        <div class="border-t border-gray-200 p-4">
+                            <div class="flex items-start space-x-2">
+                                <button class="p-2 hover:bg-gray-100 rounded">📎</button>
+                                <button class="p-2 hover:bg-gray-100 rounded">🖼️</button>
+                                <button class="p-2 hover:bg-gray-100 rounded">📋</button>
+                                <button class="p-2 hover:bg-gray-100 rounded">😊</button>
+                            </div>
+                            <div class="mt-2 relative">
+                                <textarea
+                                    class="w-full p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                    rows="3"
+                                    placeholder="Type or let AI generate a response..."
+                                ></textarea>
+                                <div class="absolute bottom-3 right-3 flex items-center space-x-2">
+                                    <button class="p-1 hover:bg-gray-100 rounded">⏰</button>
+                                    <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded">➤</button>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between mt-2">
+                                <div class="flex items-center space-x-2">
+                                    <input type="checkbox" id="save-template" class="rounded">
+                                    <label for="save-template" class="text-sm text-gray-600">Save as template</label>
+                                </div>
+                                <div class="text-sm text-gray-600">
+                                    <button class="text-blue-600 hover:text-blue-800">📋 Generate Response</button>
+                                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded ml-2">🤖 Use AI Suggestion</button>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Customer Lens & AI Thought Process -->
+                    <div class="w-96 flex flex-col bg-gray-50">
+                        <!-- Customer Lens Card -->
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 ml-4 mr-4">
+                            <h3 class="font-semibold text-gray-900 mb-4">Customer Lens</h3>
+
+                            <div class="flex items-center space-x-3 mb-4">
+                                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+                                    EP
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">Emma Parker</div>
+                                    <div class="text-sm text-gray-600">emma.p@email.com</div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Loyalty Status:</span>
+                                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-medium">Gold Member</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Lifetime Value:</span>
+                                    <span class="font-medium">$2,450</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Last Purchase:</span>
+                                    <div class="text-right">
+                                        <div class="text-xs text-gray-500">3 weeks ago</div>
+                                        <div class="text-xs">(Order #987122 • "The Seaside Linen Dress")</div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Recent Activity:</span>
+                                    <span class="text-xs">Viewed "Autumn Collection" 2 days ago</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Active Offers:</span>
+                                    <span class="text-xs">[Empty]</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 24px space between cards -->
+                        <div style="height: 24px;"></div>
+
+                        <!-- AI Thought Process Card -->
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 ml-4 mr-4">
+                            <h3 class="font-semibold text-gray-900 mb-4">AI Thought Process</h3>
+
+                            <div class="space-y-3">
+                                <!-- Executing Actions -->
+                                <div class="border border-gray-200 rounded p-3">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Executing</span>
+                                        <span class="text-sm">Applying $15 credit to account... Done</span>
+                                    </div>
+                                </div>
+
+                                <div class="border border-gray-200 rounded p-3">
+                                    <div class="flex items-center space-x-2 mb-2">
+                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">Executing</span>
+                                        <span class="text-sm">Generating new coupon code... Done</span>
+                                    </div>
+                                </div>
+
+                                <!-- Status -->
+                                <div class="border border-gray-200 rounded p-3">
+                                    <div class="flex items-start space-x-2">
+                                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-medium">Status</span>
+                                        <span class="text-sm">Human Agent Sarah Miller has approved the proposed actions</span>
+                                    </div>
+                                </div>
+
+                                <!-- Flag -->
+                                <div class="border border-gray-200 rounded p-3">
+                                    <div class="flex items-start space-x-2">
+                                        <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs font-medium">Flag</span>
+                                        <span class="text-sm">Goodwill credit exceeds AI autonomy limits. Requires human approval</span>
+                                    </div>
+                                </div>
+
+                                <!-- Suggestions -->
+                                <div class="border border-gray-200 rounded p-3">
+                                    <div class="flex items-start space-x-2">
+                                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Suggestion</span>
+                                        <span class="text-sm">Goodwill Gesture Recommendation: Based on customer's high lifetime value and recent browsing activity, offer a $15 credit as a special apology</span>
+                                    </div>
+                                </div>
+
+                                <div class="border border-gray-200 rounded p-3">
+                                    <div class="flex items-start space-x-2">
+                                        <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-medium">Suggestion</span>
+                                        <span class="text-sm">Exception for Gold Members: Permitted to issue...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function addChatButtons(buttons) {
+            const chatMessages = document.getElementById('chat-messages');
+            const buttonDiv = document.createElement('div');
+            buttonDiv.className = 'flex justify-start';
+
+            const buttonContainer = document.createElement('div');
+            buttonContainer.className = 'space-y-2';
+
+            buttons.forEach((button, index) => {
+                const buttonElement = document.createElement('button');
+                buttonElement.className = 'block w-full text-left px-4 py-3 bg-white border-2 border-blue-600 hover:bg-blue-50 text-sm transition-colors duration-200';
+                buttonElement.style.borderRadius = '4px';
+
+                // Create button content without checkbox icon
+                buttonElement.innerHTML = `
+                    <span class="text-blue-600 font-medium">${button.text}</span>
+                `;
+
+                buttonElement.addEventListener('click', button.action);
+                buttonContainer.appendChild(buttonElement);
+            });
+
+            buttonDiv.appendChild(buttonContainer);
+            chatMessages.appendChild(buttonDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function handleEmmaParkerFlow() {
+            console.log('Handling Emma Parker flow');
+            showAIThinking();
+
+            setTimeout(() => {
+                // Don't hide thinking - it stays in chat with expand/collapse
+                addChatMessage("<strong>Approval Needed: Emma Parker</strong><br><br>The AI agent in Emma Parker's live chat requires human approval.<br><br>Please select an action:", 'ai');
+
+                setTimeout(() => {
+                    console.log('Adding chat buttons');
+                    addChatButtons([
+                        { text: "🔍 Check approval request", action: showApprovalRequest },
+                        { text: "👤 Check full profile", action: showCustomerProfile }
+                    ]);
+                }, 500);
+            }, 4500); // Adjusted timeout for 4 thinking steps
+        }
+
+        function showApprovalRequest() {
+            console.log('Show approval request clicked');
+
+            // Hide welcome state and show loading state in right column
+            const welcomeState = document.getElementById('welcome-state');
+            const conversationView = document.getElementById('conversation-view');
+
+            if (welcomeState && conversationView) {
+                welcomeState.classList.add('hidden');
+
+                // Show loading state in right column
+                showRightColumnLoading();
+
+                // Add thinking process for loading conversation
+                showLoadingThinking();
+            } else {
+                console.error('Could not find welcome-state or conversation-view elements');
+            }
+        }
+
+        function showRightColumnLoading() {
+            const conversationView = document.getElementById('conversation-view');
+
+            // Show loading state
+            conversationView.innerHTML = `
+                <div class="h-full flex items-center justify-center bg-gray-50">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-6 h-6 text-blue-600 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Loading Conversation</h3>
+                        <p class="text-gray-600">Accessing Emma Parker's live chat session...</p>
+                    </div>
+                </div>
+            `;
+
+            conversationView.classList.remove('hidden');
+        }
+
+        function showCustomerProfile() {
+            // Hide welcome state and show customer profile
+            document.getElementById('welcome-state').classList.add('hidden');
+            document.getElementById('customer-profile-view').classList.remove('hidden');
+
+            // Add response to chat
+            addChatMessage("Loading Emma Parker's customer profile...", 'ai');
+        }
+
+        function loadConversationView() {
+            const conversationView = document.getElementById('conversation-view');
+            conversationView.innerHTML = `
+                <div class="h-full flex flex-col">
+                    <div class="border-b border-gray-200 pb-4 mb-4">
+                        <h2 class="text-xl font-semibold text-gray-900">Live Conversation</h2>
+                        <p class="text-gray-600">Emma Parker • Gold Member</p>
+                    </div>
+
+                    <div class="flex-1 bg-white rounded-lg border border-gray-200 overflow-hidden">
+                        <!-- Conversation Header -->
+                        <div class="bg-gray-50 border-b border-gray-200 px-4 py-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold text-sm">
+                                        E
+                                    </div>
+                                    <div>
+                                        <h4 class="font-medium text-gray-900">Emma Parker</h4>
+                                        <p class="text-xs text-green-600">Active conversation</p>
+                                    </div>
+                                </div>
+                                <div class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-xs font-medium cursor-pointer hover:bg-orange-200" id="approval-required-btn">
+                                    Approval Required
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Conversation Messages -->
+                        <div class="p-4 space-y-4 h-96 overflow-y-auto">
+                            <!-- Customer Message -->
+                            <div class="flex justify-end">
+                                <div class="bg-blue-100 px-4 py-2 rounded-lg max-w-md">
+                                    <p class="text-sm">Hi, I'm trying to use my coupon code FALL20 but it's not working at checkout. Can you help?</p>
+                                    <p class="text-xs text-gray-500 mt-1">2 minutes ago</p>
+                                </div>
+                            </div>
+
+                            <!-- AI Response -->
+                            <div class="flex justify-start">
+                                <div class="bg-gray-100 px-4 py-2 rounded-lg max-w-md">
+                                    <p class="text-sm">I can help you with that! Let me check your coupon code FALL20...</p>
+                                    <p class="text-xs text-gray-500 mt-1">2 minutes ago</p>
+                                </div>
+                            </div>
+
+                            <!-- AI Follow-up -->
+                            <div class="flex justify-start">
+                                <div class="bg-gray-100 px-4 py-2 rounded-lg max-w-md">
+                                    <p class="text-sm">I see that the FALL20 coupon expired yesterday. However, as a Gold member, I can request approval to extend this coupon for you. Let me get that processed.</p>
+                                    <p class="text-xs text-gray-500 mt-1">1 minute ago</p>
+                                </div>
+                            </div>
+
+                            <!-- Customer Response -->
+                            <div class="flex justify-end">
+                                <div class="bg-blue-100 px-4 py-2 rounded-lg max-w-md">
+                                    <p class="text-sm">That would be great! Thank you so much.</p>
+                                    <p class="text-xs text-gray-500 mt-1">1 minute ago</p>
+                                </div>
+                            </div>
+
+                            <!-- Pending AI Message -->
+                            <div class="flex justify-start">
+                                <div class="bg-yellow-50 border border-yellow-200 px-4 py-2 rounded-lg max-w-md">
+                                    <p class="text-sm">I'm waiting for human approval to extend your coupon. This should just take a moment...</p>
+                                    <p class="text-xs text-yellow-600 mt-1">Pending approval</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add event listener for approval button
+            setTimeout(() => {
+                const approvalBtn = document.getElementById('approval-required-btn');
+                if (approvalBtn) {
+                    approvalBtn.addEventListener('click', showApprovalModal);
+                }
+            }, 100);
+        }
+
+        function showApprovalModal() {
+            document.getElementById('approval-modal').classList.remove('hidden');
+        }
+
+        function hideApprovalModal() {
+            document.getElementById('approval-modal').classList.add('hidden');
+        }
+
+        function approveRequest() {
+            hideApprovalModal();
+
+            // Add success message to conversation
+            const conversationView = document.getElementById('conversation-view');
+            const messagesContainer = conversationView.querySelector('.space-y-4');
+
+            // Remove pending message and add approved message
+            const pendingMessage = messagesContainer.lastElementChild;
+            pendingMessage.remove();
+
+            // Add approved AI response
+            const approvedMessage = document.createElement('div');
+            approvedMessage.className = 'flex justify-start';
+            approvedMessage.innerHTML = `
+                <div class="bg-green-50 border border-green-200 px-4 py-2 rounded-lg max-w-md">
+                    <p class="text-sm">Great news! Your FALL20 coupon has been approved and extended. You can now use it at checkout. Is there anything else I can help you with?</p>
+                    <p class="text-xs text-green-600 mt-1">Just now • Approved</p>
+                </div>
+            `;
+            messagesContainer.appendChild(approvedMessage);
+
+            // Add success message to chat
+            addChatMessage("✅ Approval granted! Emma's coupon has been extended and the conversation continues.", 'ai');
+        }
+
+        // Initialize chat functionality
+        function initChatInterface() {
+            const voiceSubmitBtn = document.getElementById('voice-submit-btn');
+            const aiTextarea = document.getElementById('ai-textarea');
+            const chatInput = document.getElementById('chat-input');
+            const chatSendBtn = document.getElementById('chat-send-btn');
+            const sidebar = document.getElementById('expanded-nav');
+
+            // Handle home page chat submission
+            if (voiceSubmitBtn && aiTextarea) {
+                console.log('Found voice submit button and textarea, adding event listener');
+                voiceSubmitBtn.addEventListener('click', function() {
+                    console.log('Voice submit button clicked!');
+                    const query = aiTextarea.value.trim();
+                    console.log('Voice submit clicked with query:', query);
+                    if (query) {
+                        console.log('Starting chat interface...');
+                        startChatInterface(query);
+                    } else {
+                        console.log('No query entered');
+                    }
+                });
+                aiTextarea.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        const query = this.value.trim();
+                        if (query) {
+                            startChatInterface(query);
+                        }
+                    }
+                });
+            } else {
+                console.log('Could not find voice submit button or textarea elements');
+                console.log('voiceSubmitBtn:', voiceSubmitBtn);
+                console.log('aiTextarea:', aiTextarea);
+            }
+
+            // Handle chat interface input
+            if (chatInput && chatSendBtn) {
+                chatSendBtn.addEventListener('click', function() {
+                    const message = chatInput.value.trim();
+                    if (message) {
+                        addChatMessage(message, 'user');
+                        chatInput.value = '';
+                    }
+                });
+
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        const message = this.value.trim();
+                        if (message) {
+                            addChatMessage(message, 'user');
+                            this.value = '';
+                        }
+                    }
+                });
+            }
+
+            // Sidebar hover functionality
+            if (sidebar) {
+                sidebar.addEventListener('mouseenter', function() {
+                    if (isInChatMode) {
+                        this.classList.remove('sidebar-collapsed');
+                        this.style.width = ''; // Remove inline style to allow expansion
+                        console.log('Sidebar expanded on hover');
+                    }
+                });
+
+                sidebar.addEventListener('mouseleave', function() {
+                    if (isInChatMode) {
+                        this.classList.add('sidebar-collapsed');
+                        this.style.width = '60px'; // Force collapse
+                        console.log('Sidebar collapsed on mouse leave');
+                    }
+                });
+            }
+
+            // Modal functionality
+            const closeModalBtn = document.getElementById('close-modal');
+            const approveBtn = document.getElementById('approve-btn');
+            const denyBtn = document.getElementById('deny-btn');
+
+            if (closeModalBtn) {
+                closeModalBtn.addEventListener('click', hideApprovalModal);
+            }
+
+            if (approveBtn) {
+                approveBtn.addEventListener('click', approveRequest);
+            }
+
+            if (denyBtn) {
+                denyBtn.addEventListener('click', function() {
+                    hideApprovalModal();
+                    addChatMessage("Request denied. Taking over conversation with Emma Parker.", 'ai');
+                });
+            }
+        }
+
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             showPage('home');
             initAnimatedPlaceholder();
+            initChatInterface();
         });
     </script>
 </body>
