@@ -3292,13 +3292,15 @@
                     execElement2.style.opacity = '1';
                     execElement2.style.transform = 'translateY(0)';
 
-                    // Update Active Offers field right after this item appears
-                    updateActiveOffers();
-
-                    // Start Scene 3 after active offers are updated
+                    // Add 1 second buffer before updating Active Offers
                     setTimeout(() => {
-                        loadScene3();
-                    }, 800);
+                        updateActiveOffers();
+
+                        // Add 1.5 second buffer before starting Scene 3 after active offers are updated
+                        setTimeout(() => {
+                            loadScene3();
+                        }, 1500);
+                    }, 1000);
                 }, 100);
             }, 1500);
         }
@@ -3357,34 +3359,67 @@
                 }, 100);
             }, 400);
 
-            // Add Emma's final response
+            // Add Emma's typing indicator first (1.5 second buffer)
             setTimeout(() => {
-                const emmaFinalMessage = `
-                    <div class="flex items-start space-x-3" style="opacity: 0; transform: translateY(10px); transition: all 0.5s ease;">
+                const typingIndicator = `
+                    <div class="flex items-start space-x-3" id="emma-typing" style="opacity: 0; transform: translateY(10px); transition: all 0.5s ease;">
                         <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face&auto=format"
                              alt="Emma Parker"
                              class="w-8 h-8 rounded-full object-cover border border-gray-200 flex-shrink-0">
                         <div class="flex-1">
                             <div class="flex items-center space-x-2 mb-1">
                                 <span class="font-medium text-sm">Emma Parker</span>
-                                <span class="text-xs text-gray-500">2 min ago</span>
+                                <span class="text-xs text-gray-500">is typing...</span>
                             </div>
                             <div class="bg-white border border-gray-200 rounded-lg p-3 max-w-md">
-                                Wow, that's really thoughtful. Appreciate the quick help!
+                                <div class="flex space-x-1">
+                                    <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                                    <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.1s;"></div>
+                                    <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 `;
 
-                chatMessages.insertAdjacentHTML('beforeend', emmaFinalMessage);
-                const emmaElement = chatMessages.lastElementChild;
+                chatMessages.insertAdjacentHTML('beforeend', typingIndicator);
+                const typingElement = chatMessages.lastElementChild;
                 setTimeout(() => {
-                    emmaElement.style.opacity = '1';
-                    emmaElement.style.transform = 'translateY(0)';
+                    typingElement.style.opacity = '1';
+                    typingElement.style.transform = 'translateY(0)';
                 }, 100);
 
-                console.log('Demo flow complete!');
-            }, 1000);
+                // Replace typing indicator with actual message after 3 seconds
+                setTimeout(() => {
+                    typingElement.remove();
+
+                    const emmaFinalMessage = `
+                        <div class="flex items-start space-x-3" style="opacity: 0; transform: translateY(10px); transition: all 0.5s ease;">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face&auto=format"
+                                 alt="Emma Parker"
+                                 class="w-8 h-8 rounded-full object-cover border border-gray-200 flex-shrink-0">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-1">
+                                    <span class="font-medium text-sm">Emma Parker</span>
+                                    <span class="text-xs text-gray-500">2 min ago</span>
+                                </div>
+                                <div class="bg-white border border-gray-200 rounded-lg p-3 max-w-md">
+                                    Wow, that's really thoughtful. Appreciate the quick help!
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    chatMessages.insertAdjacentHTML('beforeend', emmaFinalMessage);
+                    const emmaElement = chatMessages.lastElementChild;
+                    setTimeout(() => {
+                        emmaElement.style.opacity = '1';
+                        emmaElement.style.transform = 'translateY(0)';
+                    }, 100);
+
+                    console.log('Demo flow complete!');
+                }, 3000);
+            }, 1500);
         }
 
         function showRightColumnLoading() {
