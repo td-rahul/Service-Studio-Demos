@@ -3238,9 +3238,9 @@
         }
 
         function animateScene2Items() {
-            const flagMessage = document.getElementById('demo-flag-message');
+            const thoughtProcessContainer = document.getElementById('demo-thought-process');
 
-            // Add Status message first (above flag)
+            // Add Status message first (at the very top)
             setTimeout(() => {
                 const statusItem = `
                     <div class="px-3 py-2.5 bg-purple-50 rounded border border-violet-200" style="opacity: 0; transform: translateY(-10px); transition: all 0.5s ease;">
@@ -3250,15 +3250,15 @@
                         </div>
                     </div>
                 `;
-                flagMessage.insertAdjacentHTML('beforebegin', statusItem);
-                const statusElement = flagMessage.previousElementSibling;
+                thoughtProcessContainer.insertAdjacentHTML('afterbegin', statusItem);
+                const statusElement = thoughtProcessContainer.firstElementChild;
                 setTimeout(() => {
                     statusElement.style.opacity = '1';
                     statusElement.style.transform = 'translateY(0)';
                 }, 100);
             }, 300);
 
-            // Add first Executing message (above flag)
+            // Add first Executing message (newest at top)
             setTimeout(() => {
                 const executingItem1 = `
                     <div class="px-3 py-2.5 bg-green-50 rounded border border-green-800" style="opacity: 0; transform: translateY(-10px); transition: all 0.5s ease;">
@@ -3268,15 +3268,15 @@
                         </div>
                     </div>
                 `;
-                flagMessage.insertAdjacentHTML('beforebegin', executingItem1);
-                const execElement1 = flagMessage.previousElementSibling;
+                thoughtProcessContainer.insertAdjacentHTML('afterbegin', executingItem1);
+                const execElement1 = thoughtProcessContainer.firstElementChild;
                 setTimeout(() => {
                     execElement1.style.opacity = '1';
                     execElement1.style.transform = 'translateY(0)';
                 }, 100);
             }, 900);
 
-            // Add second Executing message (above flag)
+            // Add second Executing message (newest at top)
             setTimeout(() => {
                 const executingItem2 = `
                     <div class="px-3 py-2.5 bg-green-50 rounded border border-green-800" style="opacity: 0; transform: translateY(-10px); transition: all 0.5s ease;">
@@ -3286,8 +3286,8 @@
                         </div>
                     </div>
                 `;
-                flagMessage.insertAdjacentHTML('beforebegin', executingItem2);
-                const execElement2 = flagMessage.previousElementSibling;
+                thoughtProcessContainer.insertAdjacentHTML('afterbegin', executingItem2);
+                const execElement2 = thoughtProcessContainer.firstElementChild;
                 setTimeout(() => {
                     execElement2.style.opacity = '1';
                     execElement2.style.transform = 'translateY(0)';
