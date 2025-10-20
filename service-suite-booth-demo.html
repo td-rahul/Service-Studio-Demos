@@ -2408,8 +2408,7 @@
                 // Populate the expandable steps list
                 stepsDiv.innerHTML = allSteps.map(step => `<div class="text-blue-600 opacity-75">• ${step}</div>`).join('');
 
-                // Load the actual conversation content in right column
-                loadConversationContent();
+                // Note: Scene 1 will be loaded directly after timeout instead of static content
             }
 
             // Start the animation
@@ -2624,7 +2623,7 @@
                                     <button class="bg-white border border-gray-300 text-gray-700 px-3 py-2 rounded text-sm font-medium hover:bg-gray-50 transition-colors">
                                         Deny & take over chat
                                     </button>
-                                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm font-medium transition-colors">
+                                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm font-medium transition-colors" onclick="loadScene2()">
                                         Approve $15 credit
                                     </button>
                                 </div>
@@ -2831,28 +2830,561 @@
         }
 
         function showApprovalRequest() {
-            console.log('Show approval request clicked');
+            console.log('Show approval request clicked - Starting Scene 1');
 
-            // Hide welcome state and show loading state in right column
+            // Hide welcome state and show conversation view for Scene 1
             const welcomeState = document.getElementById('welcome-state');
             const conversationView = document.getElementById('conversation-view');
 
             if (welcomeState && conversationView) {
                 welcomeState.classList.add('hidden');
 
-                // Show loading state in right column
+                // Show loading state in right column (original functionality)
                 showRightColumnLoading();
 
-                // Add thinking process for loading conversation
+                // Add thinking process for loading conversation (original functionality)
                 showLoadingThinking();
 
-                // Show conversation view after thinking process
+                // Load Scene 1 directly after thinking process (no intermediate static content)
                 setTimeout(() => {
+                    loadScene1();
                     conversationView.classList.remove('hidden');
-                }, 5000);
+                }, 3000);
             } else {
                 console.error('Could not find welcome-state or conversation-view elements');
             }
+        }
+
+        function loadScene1() {
+            console.log('Loading Scene 1...');
+
+            // Create the Scene 1 content directly in the conversation view
+            const conversationView = document.getElementById('conversation-view');
+            conversationView.innerHTML = `
+                <div class="h-full flex">
+                    <!-- Left Column: Emma Parker Chat Window -->
+                    <div class="flex-1 mr-6">
+                        <div class="bg-white rounded-lg border border-gray-200 h-full flex flex-col">
+                            <!-- Customer Header -->
+                            <div class="border-b border-gray-200 px-4 py-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face&auto=format"
+                                             alt="Emma Parker"
+                                             class="w-8 h-8 rounded-full object-cover border border-gray-200">
+                                        <div>
+                                            <div class="flex items-center space-x-2">
+                                                <span class="font-medium">Emma Parker</span>
+                                                <span class="text-sm bg-gray-100 px-2 py-1 rounded">Web</span>
+                                            </div>
+                                            <div class="flex items-center space-x-2 text-sm text-gray-600">
+                                                <span>emma.parker@email.com</span>
+                                                <span>•</span>
+                                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">Active</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <button class="p-2 hover:bg-gray-100 rounded">📞</button>
+                                        <button class="p-2 hover:bg-gray-100 rounded">🎥</button>
+                                        <button class="p-2 hover:bg-gray-100 rounded">👥</button>
+                                        <button class="p-2 hover:bg-gray-100 rounded">⋯</button>
+                                    </div>
+                                </div>
+                                <div class="mt-2 text-sm text-gray-600">
+                                    Conversation started 6/15/2023 • 5 messages
+                                </div>
+                            </div>
+
+                            <!-- AI Action Approval Request -->
+                            <div class="border-t border-b border-gray-200 p-4" style="background-color: #FDE7E9;" id="demo-approval-request">
+                                <div class="flex items-center space-x-2 mb-3">
+                                    <span class="text-purple-600">🤖</span>
+                                    <span class="font-semibold" style="color: #471EA3;">AI Action Approval Request</span>
+                                </div>
+
+                                <!-- Two-column layout -->
+                                <div class="flex gap-3 mb-4">
+                                    <!-- Left Column: Main Request (2/3 width) -->
+                                    <div class="flex-1 w-2/3">
+                                        <div class="bg-white border border-purple-200 rounded-lg p-4 h-full">
+                                            <div class="mb-3">
+                                                <h4 class="font-semibold text-gray-900 text-lg">Issue $15 goodwill credit</h4>
+                                                <p class="text-sm text-gray-600">(exceeds autonomy threshold of $10)</p>
+                                            </div>
+
+                                            <!-- Confidence -->
+                                            <div class="text-sm text-purple-700 font-medium mb-3">82% confidence</div>
+
+                                            <!-- Quick Rationale -->
+                                            <div class="text-xs text-gray-600 space-y-1">
+                                                <div>• High LTV customer (3+ years, $2,400 total)</div>
+                                                <div>• Gold member tier with excellent history</div>
+                                                <div>• Sentiment recovering from frustrated</div>
+                                            </div>
+
+                                            <!-- Show more reasons link -->
+                                            <div class="mt-1">
+                                                <span class="text-xs text-blue-600 hover:text-blue-700 cursor-pointer">Show 4 more reasons</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Right Column: Automatically Completed (1/3 width) -->
+                                    <div class="w-1/3">
+                                        <div class="h-full">
+                                            <div class="flex items-center space-x-1 mb-2">
+                                                <span class="text-green-700 text-sm">✅</span>
+                                                <span class="text-sm font-medium text-green-700">Automatically completed</span>
+                                            </div>
+                                            <div class="bg-green-50 border border-green-700 rounded p-2">
+                                                <div class="text-xs text-gray-900">
+                                                    Expired coupon reissued
+                                                </div>
+                                                <div class="text-xs text-gray-500 mt-1">(policy KB-COUP-101)</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="flex items-center justify-between space-x-2">
+                                    <button class="bg-white border border-gray-300 text-gray-700 px-3 py-2 rounded text-sm font-medium hover:bg-gray-50 transition-colors">
+                                        Check Details
+                                    </button>
+                                    <div class="flex space-x-2">
+                                        <button class="bg-white border border-gray-300 text-gray-700 px-3 py-2 rounded text-sm font-medium hover:bg-gray-50 transition-colors">
+                                            Deny & take over chat
+                                        </button>
+                                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded text-sm font-medium transition-colors" onclick="loadScene2()">
+                                            Approve $15 credit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Chat Messages - Scene 1: First 3 messages only -->
+                            <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50" id="demo-chat-messages">
+                                <!-- Emma's first message -->
+                                <div class="flex items-start space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face&auto=format"
+                                         alt="Emma Parker"
+                                         class="w-8 h-8 rounded-full object-cover border border-gray-200 flex-shrink-0">
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-2 mb-1">
+                                            <span class="font-medium text-sm">Emma Parker</span>
+                                            <span class="text-xs text-gray-500">15 min ago</span>
+                                        </div>
+                                        <div class="bg-white border border-gray-200 rounded-lg p-3 max-w-md">
+                                            Hi, I'm trying to use the coupon code I received, but it isn't working at checkout.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- AI Agent response -->
+                                <div class="flex items-start space-x-3 justify-end">
+                                    <div class="flex-1 flex justify-end">
+                                        <div class="max-w-md">
+                                            <div class="flex items-center space-x-2 mb-1 justify-end">
+                                                <span class="text-xs text-gray-500">10 min ago</span>
+                                                <span class="font-medium text-sm">Alex (AI agent)</span>
+                                            </div>
+                                            <div class="bg-blue-500 text-white rounded-lg p-3">
+                                                I'm sorry about that, Emma. I see the coupon you're using has expired. Let me take care of this for you — I've just generated a brand-new 25% off coupon you can use right away: TREASURE25.
+                                            </div>
+                                            <div class="text-xs text-green-600 mt-1 text-right">✓ Delivered</div>
+                                        </div>
+                                    </div>
+                                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <span class="text-white text-xs">AI</span>
+                                    </div>
+                                </div>
+
+                                <!-- Emma's response -->
+                                <div class="flex items-start space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face&auto=format"
+                                         alt="Emma Parker"
+                                         class="w-8 h-8 rounded-full object-cover border border-gray-200 flex-shrink-0">
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-2 mb-1">
+                                            <span class="font-medium text-sm">Emma Parker</span>
+                                            <span class="text-xs text-gray-500">5 min ago</span>
+                                        </div>
+                                        <div class="bg-white border border-gray-200 rounded-lg p-3 max-w-md">
+                                            Oh great, thank you!
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Customer Lens & AI Thought Process -->
+                    <div class="w-96 flex flex-col bg-gray-50 h-full py-4">
+                        <!-- Customer Lens Card -->
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 ml-4 mr-4 flex-shrink-0">
+                            <h3 class="font-semibold text-gray-900 mb-4">Customer Lens</h3>
+
+                            <div class="flex items-center space-x-3 mb-4">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face&auto=format"
+                                     alt="Emma Parker"
+                                     class="w-10 h-10 rounded-full object-cover border-2 border-gray-200">
+                                <div>
+                                    <div class="font-medium text-gray-900">Emma Parker</div>
+                                    <div class="text-sm text-gray-600">emma.p@email.com</div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Loyalty Status:</span>
+                                    <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-medium text-right">Gold Member</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Lifetime Value:</span>
+                                    <span class="font-medium text-right">$2,450</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Last Purchase:</span>
+                                    <span class="text-xs text-right">
+                                        Order #987122<br>
+                                        <span class="text-gray-500">3 weeks ago</span>
+                                    </span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Recent Activity:</span>
+                                    <span class="text-xs text-right">
+                                        Viewed "Autumn Collection"<br>
+                                        <span class="text-gray-500">2 days ago</span>
+                                    </span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Active Offers:</span>
+                                    <span class="text-xs text-right" id="demo-active-offers"><span class="text-green-600 font-medium">TREASURE25</span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 24px space between cards -->
+                        <div style="height: 24px;"></div>
+
+                        <!-- AI Thought Process Card -->
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 ml-4 mr-4 flex-1 flex flex-col min-h-0">
+                            <h3 class="font-semibold text-gray-900 mb-4 flex-shrink-0">AI Thought Process</h3>
+
+                            <div class="flex flex-col gap-3 overflow-y-auto min-h-0 flex-1 pr-2" id="demo-thought-process">
+                                <!-- Scene 1: Flag at top, everything else below -->
+                                <div class="px-3 py-2.5 bg-red-50 rounded border border-red-200" id="demo-flag-message">
+                                    <div class="flex items-start gap-2">
+                                        <div class="w-16 text-xs font-semibold text-gray-900">Flag</div>
+                                        <div class="flex-1 text-xs text-gray-900">Goodwill credit exceeds AI autonomy limits. Requires human approval</div>
+                                    </div>
+                                </div>
+
+                                <!-- All items underneath the flag -->
+                                <div class="px-3 py-2.5 bg-purple-50 rounded border border-violet-200">
+                                    <div class="flex items-start gap-2">
+                                        <div class="w-16 text-xs font-semibold text-gray-900">Suggestion</div>
+                                        <div class="flex-1 text-xs text-gray-900">Goodwill Gesture Recommendation: Based on customer's high lifetime value and recent browsing activity, offer a $15 credit as a special apology</div>
+                                    </div>
+                                </div>
+
+                                <div class="px-3 py-2.5 bg-purple-50 rounded border border-violet-200">
+                                    <div class="flex items-start gap-2">
+                                        <div class="w-16 text-xs font-semibold text-gray-900">Suggestion</div>
+                                        <div class="flex-1 text-xs text-gray-900">Exception for Gold Members: Permitted to issue a replacement coupon of equal value. Generated a new, single-use 25% off coupon.</div>
+                                    </div>
+                                </div>
+
+                                <div class="px-3 py-2.5 bg-amber-50 rounded border border-amber-200">
+                                    <div class="flex items-start gap-2">
+                                        <div class="w-16 text-xs font-semibold text-gray-900">Identified</div>
+                                        <div class="flex-1 text-xs text-gray-900">The customer is using a coupon that expired yesterday</div>
+                                    </div>
+                                </div>
+
+                                <div class="px-3 py-2.5 bg-purple-50 rounded border border-violet-200">
+                                    <div class="flex items-start gap-2">
+                                        <div class="w-16 text-xs font-semibold text-gray-900">Suggestion</div>
+                                        <div class="flex-1 text-xs text-gray-900">Standard procedure for expired coupons is to apologize</div>
+                                    </div>
+                                </div>
+
+                                <div class="px-3 py-2.5 bg-amber-50 rounded border border-amber-200">
+                                    <div class="flex items-start gap-2">
+                                        <div class="w-16 text-xs font-semibold text-gray-900">Identified</div>
+                                        <div class="flex-1 text-xs text-gray-900">Code status: Expired. (Valid through: Sept 30, 2025)</div>
+                                    </div>
+                                </div>
+
+                                <div class="px-3 py-2.5 bg-slate-50 rounded border border-indigo-200">
+                                    <div class="flex items-start gap-2">
+                                        <div class="w-16 text-xs font-semibold text-gray-900">Lookup</div>
+                                        <div class="flex-1 text-xs text-gray-900">Checking validity of coupon code: SAVE25SUMMER.</div>
+                                    </div>
+                                </div>
+
+                                <div class="px-3 py-2.5 bg-teal-50 rounded border border-emerald-200">
+                                    <div class="flex items-start gap-2">
+                                        <div class="w-16 text-xs font-semibold text-gray-900">Analyzing</div>
+                                        <div class="flex-1 text-xs text-gray-900">Customer query: "coupon not working".</div>
+                                    </div>
+                                </div>
+
+                                <div class="px-3 py-2.5 bg-teal-50 rounded border border-emerald-200">
+                                    <div class="flex items-start gap-2">
+                                        <div class="w-16 text-xs font-semibold text-gray-900">Context</div>
+                                        <div class="flex-1 text-xs text-gray-900">Customer identified: Emma Parker (High-Value: Gold Member)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setupScene1AIThoughtProcess() {
+            const thoughtProcess = document.getElementById('ai-thought-process');
+            thoughtProcess.innerHTML = `
+                <!-- Flag at the top -->
+                <div class="px-3 py-2.5 bg-red-50 rounded border border-red-200" id="flag-message">
+                    <div class="flex items-start gap-2">
+                        <div class="w-16 text-xs font-semibold text-gray-900">Flag</div>
+                        <div class="flex-1 text-xs text-gray-900">Goodwill credit exceeds AI autonomy limits. Requires human approval</div>
+                    </div>
+                </div>
+
+                <!-- All items underneath the flag -->
+                <div class="px-3 py-2.5 bg-purple-50 rounded border border-violet-200">
+                    <div class="flex items-start gap-2">
+                        <div class="w-16 text-xs font-semibold text-gray-900">Suggestion</div>
+                        <div class="flex-1 text-xs text-gray-900">Goodwill Gesture Recommendation: Based on customer's high lifetime value and recent browsing activity, offer a $15 credit as a special apology</div>
+                    </div>
+                </div>
+
+                <div class="px-3 py-2.5 bg-purple-50 rounded border border-violet-200">
+                    <div class="flex items-start gap-2">
+                        <div class="w-16 text-xs font-semibold text-gray-900">Suggestion</div>
+                        <div class="flex-1 text-xs text-gray-900">Exception for Gold Members: Permitted to issue a replacement coupon of equal value. Generated a new, single-use 25% off coupon.</div>
+                    </div>
+                </div>
+
+                <div class="px-3 py-2.5 bg-amber-50 rounded border border-amber-200">
+                    <div class="flex items-start gap-2">
+                        <div class="w-16 text-xs font-semibold text-gray-900">Identified</div>
+                        <div class="flex-1 text-xs text-gray-900">The customer is using a coupon that expired yesterday</div>
+                    </div>
+                </div>
+
+                <div class="px-3 py-2.5 bg-purple-50 rounded border border-violet-200">
+                    <div class="flex items-start gap-2">
+                        <div class="w-16 text-xs font-semibold text-gray-900">Suggestion</div>
+                        <div class="flex-1 text-xs text-gray-900">Standard procedure for expired coupons is to apologize</div>
+                    </div>
+                </div>
+
+                <div class="px-3 py-2.5 bg-amber-50 rounded border border-amber-200">
+                    <div class="flex items-start gap-2">
+                        <div class="w-16 text-xs font-semibold text-gray-900">Identified</div>
+                        <div class="flex-1 text-xs text-gray-900">Code status: Expired. (Valid through: Sept 30, 2025)</div>
+                    </div>
+                </div>
+
+                <div class="px-3 py-2.5 bg-slate-50 rounded border border-indigo-200">
+                    <div class="flex items-start gap-2">
+                        <div class="w-16 text-xs font-semibold text-gray-900">Lookup</div>
+                        <div class="flex-1 text-xs text-gray-900">Checking validity of coupon code: SAVE25SUMMER.</div>
+                    </div>
+                </div>
+
+                <div class="px-3 py-2.5 bg-teal-50 rounded border border-emerald-200">
+                    <div class="flex items-start gap-2">
+                        <div class="w-16 text-xs font-semibold text-gray-900">Analyzing</div>
+                        <div class="flex-1 text-xs text-gray-900">Customer query: "coupon not working".</div>
+                    </div>
+                </div>
+
+                <div class="px-3 py-2.5 bg-teal-50 rounded border border-emerald-200">
+                    <div class="flex items-start gap-2">
+                        <div class="w-16 text-xs font-semibold text-gray-900">Context</div>
+                        <div class="flex-1 text-xs text-gray-900">Customer identified: Emma Parker (High-Value: Gold Member)</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function loadScene2() {
+            console.log('Starting Scene 2: Approve button clicked');
+
+            // Animate AI Action Approval Request section disappearing
+            const approvalRequest = document.getElementById('demo-approval-request');
+            if (approvalRequest) {
+                // Add transition and fade out
+                approvalRequest.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                approvalRequest.style.opacity = '0';
+                approvalRequest.style.transform = 'translateY(-10px)';
+
+                // Hide completely after animation
+                setTimeout(() => {
+                    approvalRequest.style.display = 'none';
+                    // Start the AI thought process animations after approval section disappears
+                    animateScene2Items();
+                }, 500);
+            } else {
+                // Fallback if element not found
+                animateScene2Items();
+            }
+        }
+
+        function animateScene2Items() {
+            const flagMessage = document.getElementById('demo-flag-message');
+
+            // Add Status message first (above flag)
+            setTimeout(() => {
+                const statusItem = `
+                    <div class="px-3 py-2.5 bg-purple-50 rounded border border-violet-200" style="opacity: 0; transform: translateY(-10px); transition: all 0.5s ease;">
+                        <div class="flex items-start gap-2">
+                            <div class="w-16 text-xs font-semibold text-gray-900">Status</div>
+                            <div class="flex-1 text-xs text-gray-900">Human Agent Sarah Miller has approved the proposed actions</div>
+                        </div>
+                    </div>
+                `;
+                flagMessage.insertAdjacentHTML('beforebegin', statusItem);
+                const statusElement = flagMessage.previousElementSibling;
+                setTimeout(() => {
+                    statusElement.style.opacity = '1';
+                    statusElement.style.transform = 'translateY(0)';
+                }, 100);
+            }, 300);
+
+            // Add first Executing message (above flag)
+            setTimeout(() => {
+                const executingItem1 = `
+                    <div class="px-3 py-2.5 bg-green-50 rounded border border-green-800" style="opacity: 0; transform: translateY(-10px); transition: all 0.5s ease;">
+                        <div class="flex items-start gap-2">
+                            <div class="w-16 text-xs font-semibold text-gray-900">Executing</div>
+                            <div class="flex-1 text-xs text-gray-900">Generating new coupon code... Done</div>
+                        </div>
+                    </div>
+                `;
+                flagMessage.insertAdjacentHTML('beforebegin', executingItem1);
+                const execElement1 = flagMessage.previousElementSibling;
+                setTimeout(() => {
+                    execElement1.style.opacity = '1';
+                    execElement1.style.transform = 'translateY(0)';
+                }, 100);
+            }, 900);
+
+            // Add second Executing message (above flag)
+            setTimeout(() => {
+                const executingItem2 = `
+                    <div class="px-3 py-2.5 bg-green-50 rounded border border-green-800" style="opacity: 0; transform: translateY(-10px); transition: all 0.5s ease;">
+                        <div class="flex items-start gap-2">
+                            <div class="w-16 text-xs font-semibold text-gray-900">Executing</div>
+                            <div class="flex-1 text-xs text-gray-900">Applying $15 credit to account... Done</div>
+                        </div>
+                    </div>
+                `;
+                flagMessage.insertAdjacentHTML('beforebegin', executingItem2);
+                const execElement2 = flagMessage.previousElementSibling;
+                setTimeout(() => {
+                    execElement2.style.opacity = '1';
+                    execElement2.style.transform = 'translateY(0)';
+
+                    // Update Active Offers field right after this item appears
+                    updateActiveOffers();
+
+                    // Start Scene 3 after active offers are updated
+                    setTimeout(() => {
+                        loadScene3();
+                    }, 800);
+                }, 100);
+            }, 1500);
+        }
+
+        function updateActiveOffers() {
+            console.log('Updating Active Offers...');
+            const activeOffersElement = document.getElementById('demo-active-offers');
+            if (activeOffersElement) {
+                activeOffersElement.style.transition = 'all 0.3s ease';
+                activeOffersElement.style.opacity = '0.5';
+
+                setTimeout(() => {
+                    activeOffersElement.innerHTML = `
+                        <div class="text-xs space-y-1">
+                            <div class="text-green-600 font-medium">TREASURE25</div>
+                            <div class="text-blue-600 font-medium">$15 Account Credit</div>
+                        </div>
+                    `;
+                    activeOffersElement.style.opacity = '1';
+                }, 200);
+            }
+        }
+
+        function loadScene3() {
+            console.log('Starting Scene 3: Loading final chat messages');
+
+            const chatMessages = document.getElementById('demo-chat-messages');
+
+            // Add Alex (AI agent) "Since you're a Gold Member..." message
+            setTimeout(() => {
+                const aiSecondMessage = `
+                    <div class="flex items-start space-x-3 justify-end" style="opacity: 0; transform: translateY(10px); transition: all 0.5s ease;">
+                        <div class="flex-1 flex justify-end">
+                            <div class="max-w-md">
+                                <div class="flex items-center space-x-2 mb-1 justify-end">
+                                    <span class="text-xs text-gray-500">4 min ago</span>
+                                    <span class="font-medium text-sm">Alex (AI agent)</span>
+                                </div>
+                                <div class="bg-blue-500 text-white rounded-lg p-3">
+                                    Since you're a Gold Member and a loyal customer, I've also added a $15 credit to your account as a goodwill gesture. You'll see it automatically applied to your next purchase.
+                                </div>
+                                <div class="text-xs text-green-600 mt-1 text-right">✓ Delivered</div>
+                            </div>
+                        </div>
+                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white text-xs">AI</span>
+                        </div>
+                    </div>
+                `;
+
+                chatMessages.insertAdjacentHTML('beforeend', aiSecondMessage);
+                const aiElement = chatMessages.lastElementChild;
+                setTimeout(() => {
+                    aiElement.style.opacity = '1';
+                    aiElement.style.transform = 'translateY(0)';
+                }, 100);
+            }, 400);
+
+            // Add Emma's final response
+            setTimeout(() => {
+                const emmaFinalMessage = `
+                    <div class="flex items-start space-x-3" style="opacity: 0; transform: translateY(10px); transition: all 0.5s ease;">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face&auto=format"
+                             alt="Emma Parker"
+                             class="w-8 h-8 rounded-full object-cover border border-gray-200 flex-shrink-0">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-1">
+                                <span class="font-medium text-sm">Emma Parker</span>
+                                <span class="text-xs text-gray-500">2 min ago</span>
+                            </div>
+                            <div class="bg-white border border-gray-200 rounded-lg p-3 max-w-md">
+                                Wow, that's really thoughtful. Appreciate the quick help!
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                chatMessages.insertAdjacentHTML('beforeend', emmaFinalMessage);
+                const emmaElement = chatMessages.lastElementChild;
+                setTimeout(() => {
+                    emmaElement.style.opacity = '1';
+                    emmaElement.style.transform = 'translateY(0)';
+                }, 100);
+
+                console.log('Demo flow complete!');
+            }, 1000);
         }
 
         function showRightColumnLoading() {
