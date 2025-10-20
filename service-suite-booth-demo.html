@@ -3415,16 +3415,40 @@
                     setTimeout(() => {
                         emmaElement.style.opacity = '1';
                         emmaElement.style.transform = 'translateY(0)';
+
+                        // Add chat closed message after Emma's message appears
+                        setTimeout(() => {
+                            addChatClosedMessage();
+
+                            // Update conversation status to Complete after chat closed message
+                            setTimeout(() => {
+                                updateConversationStatus();
+                            }, 1500);
+                        }, 1500);
                     }, 100);
 
                     console.log('Demo flow complete!');
-
-                    // Update conversation status to Complete after a brief delay
-                    setTimeout(() => {
-                        updateConversationStatus();
-                    }, 1000);
                 }, 3000);
             }, 1500);
+        }
+
+        function addChatClosedMessage() {
+            const chatMessages = document.getElementById('demo-chat-messages');
+
+            const chatClosedMessage = `
+                <div class="flex justify-center" style="opacity: 0; transform: translateY(10px); transition: all 0.5s ease; margin-top: 40px;">
+                    <div class="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm">
+                        💬 Chat has been closed
+                    </div>
+                </div>
+            `;
+
+            chatMessages.insertAdjacentHTML('beforeend', chatClosedMessage);
+            const closedElement = chatMessages.lastElementChild;
+            setTimeout(() => {
+                closedElement.style.opacity = '1';
+                closedElement.style.transform = 'translateY(0)';
+            }, 100);
         }
 
         function updateConversationStatus() {
